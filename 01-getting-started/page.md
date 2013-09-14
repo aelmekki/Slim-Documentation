@@ -1,4 +1,4 @@
 ---
-title: Getting Started
+title: Mise en route
 status: live
 ---
