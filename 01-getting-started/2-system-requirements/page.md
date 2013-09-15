@@ -1,5 +1,5 @@
 ---
-title: Système Minimum Requis
+title: Système Requis
 status: live
 ---
 

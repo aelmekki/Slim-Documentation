@@ -7,7 +7,7 @@ Instanciez une application Slim:
 
     $app = new \Slim\Slim();
 
-Definissze une route HTTP GET:
+Définissez une route HTTP GET:
 
     $app->get('/hello/:name', function ($name) {
         echo "Hello, $name";

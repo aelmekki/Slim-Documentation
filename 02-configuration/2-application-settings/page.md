@@ -5,9 +5,10 @@ status: live
 
 ### mode
 
-C'est un identifiant pour le mode de l'application. Ce mode n'affecte en rien les fonctionalités de l'application Slim. 
-En fait, le mode vous sert seulement si vous voulez exécuter des morceaux de code spéciaux en fonction de celui-ci, cela est possible grâce à la méthode `configMode()` de l'application.
-Le mode de l'application est déclaré à l'instanciation, que cela soit avec une variable d'environement ou avec un argument passé dans le constructeur. Il ne peut plus être changé après. La valeur n'a pas d'importance et peut-être n'importe quoi - "development", "test" et "production" sont des exemples typiques, mais n'hésitez pas à mettre une valeur personalisée (pourquoi pas "foo" ou "bar").
+C'est un identifiant pour le mode de l'application. Ce mode n'affecte en rien les fonctionnalités de l'application Slim. 
+En fait, le mode vous sert seulement si vous voulez exécuter des morceaux de code spécifiques en fonction de celui-ci, cela est possible grâce à la méthode `configMode()` de l'application.
+Le mode de l'application est déclaré à l'instanciation, que cela soit avec une variable d'environnement ou avec un argument passé dans le constructeur. Il ne peut plus être changé après. 
+La valeur n'a pas d'importance et peut-être n'importe quoi - "development", "test" et "production" sont des exemples typiques, mais n'hésitez pas à mettre une valeur personnalisée (pourquoi pas "foo" ou même "bar").
 
     <?php
     $app = new \Slim\Slim(array(
@@ -26,8 +27,8 @@ Valeur par défaut
     <strong>Attention!</strong> Slim traduit les erreurs en instances d'`ErrorException`.
 </div>
 
-Si le mode débogage est activé, Slim va utiliser son système de gestion d'erreur pour afficher des informations de diagnostique sur les exceptions qui ne sont pas attrapées / catchées.
-En revanche, si ce mode est désactivé, Slim invoquera votre gestionnaire d'erreur personalisé en lui passant ces mêmes exceptions comme premier argument.
+Si le mode debug est activé, Slim va utiliser son système de gestion d'erreur pour afficher des informations de diagnostic sur les exceptions qui ne sont pas attrapées / catchées.
+En revanche, si ce mode est désactivé, Slim invoquera votre gestionnaire d'erreur personnalisé en lui passant ces mêmes exceptions en tant que premier argument.
 
     <?php
     $app = new \Slim\Slim(array(
@@ -42,13 +43,14 @@ Valeur par défaut
 
 ### log.writer
 
-Utiliser un logueur pour pouvoir loguer des messages dans les sorties apropriées. Par défaut, le logueur de Slim va écrire les messages dans `STDERR`. Si vous voulez utiliser un logueur personalisé, il doit simplement implémenter cette interface: 
+Utiliser un logueur pour pouvoir loguer des messages dans les sorties appropriées. 
+Par défaut, le logueur de Slim va écrire les messages dans `STDERR`. Si vous voulez utiliser un logueur personnalisé, il doit simplement implémenter cette interface: 
 
     public write(mixed $message, int $level);
 
-La méthode `write()` est celle qui gère l'envoie de message de log (pas forcément une chaine de caractères) dans la bonne sortie (par exemple, un fichier texte, une base de données ou encore un web service).
+La méthode `write()` est celle qui gère l'envoi de messages de log (message qui n'est pas forcément une chaîne de caractères) dans la bonne sortie (par exemple, un fichier texte, une base de données ou encore un web service).
 
-Pour utiliser un logueur personalisé après l'instanciation, vous devez directement modifier celui de Slim et utiliser sa méthode `setWriter()`.
+Pour utiliser un logueur personnalisé après l'instanciation, vous devez directement modifier celui de Slim et utiliser sa méthode `setWriter()`.
 
     <?php
     // Pendant l'instanciation
@@ -127,9 +129,9 @@ Valeur par défaut
 ### templates.path
 
 Le chemin, relatif ou absolu, jusqu'au dossier qui contient vos templates d'application Slim.
-Ce chemin est utilisé par la vue de l'application Slim (View) pour trouver et utiliser les templates.
+Ce chemin est utilisé par la vue de l'application Slim (View) pour trouver et pouvoir utiliser les templates.
 
-Pour changer ce paramètre après l'instanciation, vous devez accéder à la vue de Slim directement et utiliser sa méthode `setTemplatesDirectory()`.
+Pour changer ce paramètre après l'instanciation, vous devez accéder à la View de Slim directement et utiliser sa méthode `setTemplatesDirectory()`.
 
     <?php
     // Pendant l'instanciation
@@ -149,7 +151,7 @@ Valeur par défaut
 
 ### view
 
-La classe View, plus précisément son instance, utilisé par l'application Slim. Pour changer ce paramètre après l'instanciation, il vous faut utiliser la méthode `view()`de l'application Slim.
+La classe View, plus précisément son instance, utilisée par l'application Slim. Pour changer ce paramètre après l'instanciation, il vous faut utiliser la méthode `view()`de l'application Slim.
 
     <?php
     // Pendant l'instanciation
@@ -168,7 +170,7 @@ Valeur par défaut
 
 ### cookies.encrypt
 
-Détermines si l'application Slim doit chiffrer les cookies HTTP ou non.
+Spécifie si l'application Slim doit chiffrer les cookies HTTP ou non.
 
     <?php
     $app = new \Slim\Slim(array(
@@ -184,7 +186,7 @@ Valeur par défaut
 ### cookies.lifetime
 
 Paramètre la durée de vie d'un cookie HTTP créé par l'application Slim. Si c'est un entier, il doit être un timestamp UNIX valide, il représente la date à laquelle le cookie expire.
-Si c'est une chaine de caractèr, il est converti par la fonction `strtotime()` afin d'avoir un timestamp UNIX valide pour savoir quand le cookie expire.
+Si c'est une chaîne de caractères, il est converti par la fonction `strtotime()` afin d'avoir un timestamp UNIX valide pour savoir quand le cookie expire.
 
     <?php
     // Pendant l'instanciation
@@ -203,7 +205,7 @@ Valeur par défaut
 
 ### cookies.path
 
-Détermine le chemin du cookie HTTP si aucun n'a déjà été spécifié quand la méthode `setCookie()`, ou encore `setEncryptedCookie()`, a été utilisée.
+Spécifie le chemin du cookie HTTP si aucun n'a déjà été spécifié quand la méthode `setCookie()`, ou encore `setEncryptedCookie()`, a été utilisée.
 
     <?php
     // Pendant l'instanciation
@@ -222,7 +224,7 @@ Valeur par défaut
 
 ### cookies.domain
 
-Détermine le dommaine du cookie HTTP si aucun n'a déjà été spécifié quand la méthode `setCookie()`, ou encore `setEncryptedCookie()`, a été utilisée.
+Spécifie le domaine du cookie HTTP si aucun n'a déjà été spécifié quand la méthode `setCookie()`, ou encore `setEncryptedCookie()`, a été utilisée.
 
     <?php
     // Pendant l'instanciation
@@ -241,7 +243,7 @@ Valeur par défaut
 
 ### cookies.secure
 
-Détermine si le cookie doit être délivré seulement en HTTPS ou non. Ce paramètre peut être changé lors de l'appel à la méthode `setCookie()`de Slim ou encore `setEncryptedCookie()`.
+Spécifie si le cookie doit être délivré seulement en HTTPS ou non. Ce paramètre peut être changé lors de l'appel à la méthode `setCookie()`de Slim ou encore `setEncryptedCookie()`.
 
     <?php
     // Pendant l'instanciation
@@ -260,7 +262,7 @@ Valeur par défaut
 
 ### cookies.httponly
 
-Détermine si le cookie doit être délivré seulement en HTTP ou non. Ce paramètre peut être changé lors de l'appel à la méthode `setCookie()`de Slim ou encore `setEncryptedCookie()`.
+Spécifie si le cookie doit être délivré seulement en HTTP ou non. Ce paramètre peut être changé lors de l'appel à la méthode `setCookie()`de Slim ou encore `setEncryptedCookie()`.
 
     <?php
     // Pendant l'instanciation
@@ -336,7 +338,7 @@ Valeur par défaut
 
 ### http.version
 
-Par défaut, Slim retourne une réponse HTTP/1.1 au client. Il faut utiliser ce paramètre si vous voulez retourner une réponse HTTP/1.0. Cela peut-être utile si vous utilisez PHPFog ou un serveur nginx qui communique avec des proxies au lieu de répondre directement au client HTTP.
+Par défaut, Slim retourne une réponse HTTP/1.1 au client. Il faut utiliser ce paramètre si vous voulez retourner une réponse HTTP/1.0. Cela peut être utile si vous utilisez PHPFog ou un serveur nginx qui communique avec des serveurs proxies au lieu de répondre directement au client HTTP.
 
     <?php
     // Pendant l'instanciation

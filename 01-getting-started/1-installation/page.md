@@ -28,7 +28,7 @@ Ajoutez cette ligne dans le fichier `index.php` de votre application:
 
 ### Installation Manuelle
 
-Télechargez et extrayez Slim Framework dans le répertoire de votre projet puis, dans le fichier `index.php` de votre application faites un `require` de Slim. 
+Téléchargez et extrayez Slim Framework dans le répertoire de votre projet puis, dans le fichier `index.php` de votre application faites un `require` de Slim. 
 Vous devrez aussi enregistrer l'autoloader de Slim.
 
     <?php

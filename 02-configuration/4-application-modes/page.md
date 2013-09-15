@@ -6,11 +6,11 @@ status: live
 C'est une pratique commune que de faire tourner une application web dans un mode dépendant de l'état courant du projet.
 Si vous développez l'application, elle tournera en mode de “développement”; si vous la testez, le mode sera “test”; si les développements et tests sont ok, l'application est lancée et tourne en mode “production”.
 
-Slim supporte le concepte des modes que vous pouvez définir vous-même. Par exemple, vous pouvez activer le débogague dans le mode “développement” mais pas dans le mode “production”. L'exemple suivant montre comment configurer Slim différent pour un mode donné.
+Slim supporte le concept des modes que vous pouvez définir vous-même. Par exemple, vous pouvez activer le déboguage dans le mode “développement” mais pas dans le mode “production”. L'exemple suivant montre comment configurer Slim différent pour un mode donné.
 
 ### Qu'est-ce qu'un mode?
 
-Techniquement, un mode d'application n'est qu'une chaine de caractère - comme “production” ou “développement” - qui dispose d'une fonction de rappel utilisée pour préparer Slim correctement. 
+Techniquement, un mode d'application n'est qu'une chaîne de caractères - comme “production” ou “développement” - qui dispose d'une fonction de rappel utilisée pour préparer Slim correctement. 
 Le mode de l'application peut être n'importe quoi, ce que vous voulez, “test”, “production”, “développement”, ou encore “foo” et même “bar”!
 
 ### Comment mettre en place un mode?
@@ -37,13 +37,13 @@ Si aucune variable d'environnement n'est trouvée, Slim va ensuite regarder dans
 
 #### Mode par défaut
 
-Si aucune des deux valeur n'est trouvée, Slim va définir le mode à “development”.
+Si aucune des deux valeurs n'est trouvée, Slim va définir le mode à “development”.
 
 ### Configurer pour un mode spécifique
 
-Après avoir instancié votre application Slim, vous pouvez la configurer pour un mode spécifique avec la méthode `configureMode()` de Slim. Cette méthode accepte 2 arguments: le nom du mode ciblé et une fonction de rappel qui sera appelée imédiatement si le premier argument correspond au mode de l'application.
+Après avoir instancié votre application Slim, vous pouvez la configurer pour un mode spécifique avec la méthode `configureMode()` de Slim. Cette méthode accepte 2 arguments: le nom du mode ciblé et une fonction de rappel qui sera appelée immédiatement si le premier argument correspond au mode de l'application.
 
-En considérant que le mode de l'application est “production”. Seul la fonction de rappel associée au mode “production” sera appelée. La fonction de rappel associée au mode “development” sera ignorée tant que le mode n'est pas changé à “development”.
+En considérant que le mode de l'application est “production”. Seule la fonction de rappel associée au mode “production” sera appelée. La fonction de rappel associée au mode “development” sera ignorée tant que le mode n'est pas changé à “development”.
 
     <?php
     // Définir le mode
