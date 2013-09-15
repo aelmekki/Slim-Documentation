@@ -1,32 +1,29 @@
 ---
-title: Configuration Overview
+title: Présentation de la configuration
 status: live
 ---
 
-There are two ways to apply settings to the Slim application. First during Slim application instantiation and second
-after instantiation. All settings can be applied at instatiation time by passing Slim’s constructor an associative
-array. All settings can be retrieved and modified after instantiation, however some of them can not be done simply by
-using the config application instance method but will be demonstrated as necessary below. Before I list the available
-settings, I want to quickly explain how you may define and inspect settings with your Slim application.
+Il y a deux façons de configurer une application Slim. L'une durant l'instantiation de l'application Slim et l'autre, après l'instantation.
+Tous les paramètres peuvent êtres appliqués au moment de l'instantiation en passant au constructeur de Slim un tableau associatif. Tous les paramètres peuvent être retrouvés et modifiés après l'instantation, cependant, certains d'entre eux ne peuvent se paramétrer simplement en utilisant la méthode config d'une instance de Slim. Pour ces cas, une démonstration sera faite plus bas.
+Avant de lister les paramètres disponibles, je voudrai expliquer comment vous pouvez définir et inspecter les paramètres avec votre application Slim.
 
-### During Instantiation
+### Pendant l'Instanciation
 
-To define settings upon instantiation, pass an associative array into the Slim constructor.
+Pour définir les paramètres dans l'instancation, passez un tabeau associatif dans le constructeur de Slim
 
     <?php
     $app = new Slim(array(
         'debug' => true
     ));
 
-### After Instantiation
+### Après l'Instantiation
 
-To define settings after instantiation, the majority can use the config application instance method; the first
-argument is the setting name and the second argument is the setting value.
+Pour définir des paramètres après l'instanciation, en général, il est possible d'utiliser la méthode config de l'application; Le premier argument est le nom du paramètre et le second est la value que vous désirer lui affecter.
 
     <?php
     $app->config('debug', false);
 
-You may also define multiple settings at once using an associative array:
+Vous pouvez aussi définir de multiples paramètres en une fois, en utilisant un tableau associatif:
 
     <?php
     $app->config(array(
@@ -34,10 +31,9 @@ You may also define multiple settings at once using an associative array:
         'templates.path' => '../templates'
     ));
 
-To retrieve the value of a setting, you also use the config application instance method; however, you only pass one
-argument - the name of the setting you wish to inspect. If the setting you request does not exist, `null` is returned.
+Pour récuperer la valeur d'un paramètre, vous pouvez aussi utiliser la méthode config de l'instance de votre application; Pour ce cas, il ne faut passer qu'un argument - le nom du paramètre que vous voulez inspecter. Si le paramètre n'existe pas, la méthode retournera `null`.
 
     <?php
     $settingValue = $app->config('templates.path'); //returns "../templates"
 
-You are not limited to the settings shown below; you may also define your own.
+Vous n'êtes pas limités aux paramètres de base; vous pouvez aussi défnir les votres

@@ -1,85 +1,78 @@
 ---
-title: Application Settings
+title: Paramètres de l'application
 status: live
 ---
 
 ### mode
 
-This is an identifier for the application's current mode of operation. The mode does not affect a Slim application's
-internal functionality. Instead, the mode is only for you to optionally invoke your own code for a given mode with the
-`configMode()` application method.
-
-The application mode is declared during instantiation, either as an environment variable or as an argument to the
-Slim application constructor. It cannot be changed afterward. The mode may be anything you want — "development",
-"test", and "production" are typical, but you are free to use anything you want (e.g. "foo").
+C'est un identifiant pour le mode de l'application. Ce mode n'affecte en rien les fonctionalités de l'application Slim. 
+En fait, le mode vous sert seulement si vous voulez exécuter des morceaux de code spéciaux en fonction de celui-ci, cela est possible grâce à la méthode `configMode()` de l'application.
+Le mode de l'application est déclaré à l'instanciation, que cela soit avec une variable d'environement ou avec un argument passé dans le constructeur. Il ne peut plus être changé après. La valeur n'a pas d'importance et peut-être n'importe quoi - "development", "test" et "production" sont des exemples typiques, mais n'hésitez pas à mettre une valeur personalisée (pourquoi pas "foo" ou "bar").
 
     <?php
     $app = new \Slim\Slim(array(
         'mode' => 'development'
     ));
 
-Data Type
+Type du paramètre
 : string
 
-Default Value
+Valeur par défaut
 : "development"
 
 ### debug
 
 <div class="alert alert-info">
-    <strong>Heads Up!</strong> Slim converts errors into `ErrorException` instances.
+    <strong>Attention!</strong> Slim traduit les erreurs en instances d'`ErrorException`.
 </div>
 
-If debugging is enabled, Slim will use its built-in error handler to display diagnostic information for uncaught
-Exceptions. If debugging is disabled, Slim will instead invoke your custom error handler, passing it the otherwise
-uncaught Exception as its first and only argument.
+Si le mode débogage est activé, Slim va utiliser son système de gestion d'erreur pour afficher des informations de diagnostique sur les exceptions qui ne sont pas attrapées / catchées.
+En revanche, si ce mode est désactivé, Slim invoquera votre gestionnaire d'erreur personalisé en lui passant ces mêmes exceptions comme premier argument.
 
     <?php
     $app = new \Slim\Slim(array(
         'debug' => true
     ));
 
-Data Type
+Type du paramètre
 : boolean
 
-Default Value
+Valeur par défaut
 : true
 
 ### log.writer
 
-Use a custom log writer to direct logged messages to the appropriate output destination. By default, Slim's logger will
-write logged messages to `STDERR`. If you use a custom log writer, it must implement this interface:
+Utiliser un logueur pour pouvoir loguer des messages dans les sorties apropriées. Par défaut, le logueur de Slim va écrire les messages dans `STDERR`. Si vous voulez utiliser un logueur personalisé, il doit simplement implémenter cette interface: 
 
     public write(mixed $message, int $level);
 
-The `write()` method is responsible for sending the logged message (not necessarily a string) to the appropriate output
-destination (e.g. a text file, a database, or a remote web service).
+La méthode `write()` est celle qui gère l'envoie de message de log (pas forcément une chaine de caractères) dans la bonne sortie (par exemple, un fichier texte, une base de données ou encore un web service).
 
-To specify a custom log writer after instantiation you must access Slim's logger directly and use its `setWriter()` method:
+Pour utiliser un logueur personalisé après l'instanciation, vous devez directement modifier celui de Slim et utiliser sa méthode `setWriter()`.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'log.writer' => new \My\LogWriter()
     ));
 
-    // After instantiation
+    // Après instanciation
     $log = $app->getLog();
     $log->setWriter(new \My\LogWriter());
 
-Data Type
+Type du paramètre
 : mixed
 
-Default Value
+Valeur par défaut
 : \Slim\LogWriter
 
 ### log.level
 
 <div class="alert alert-info">
-    <strong>Heads Up!</strong> Use the constants defined in `\Slim\Log` instead of integers.
+    <strong>Attention!</strong> Utilisez les constantes définies dans `\Slim\Log` plutôt que les valeures (les entiers).
 </div>
 
-Slim has these log levels:
+Slim dispose de ces différents niveaux de log:
 
 * \Slim\Log::EMERGENCY
 * \Slim\Log::ALERT
@@ -90,284 +83,272 @@ Slim has these log levels:
 * \Slim\Log::INFO
 * \Slim\Log::DEBUG
 
-The `log.level` application setting determines which logged messages will be honored and which will be ignored.
-For example, if the `log.level` setting is `\Slim\Log::INFO`, debug messages will be ignored while info, warn,
-error, and fatal messages will be logged.
+Le paramètre `log.level` de l'application détermine quel message sera affiché et quel message sera ignoré.
+Par exemple, si le `log.level` vaut `\Slim\Log::INFO`, les messages de debug seront ignorés, alors que les messages du type info, warn, error, et fatal seront logués.
 
-To change this setting after instantiation you must access Slim's logger directly and use its `setLevel()` method.
+Pour changer ce paramètre après l'instanciation, vous devez accéder au logueur de Slim et utiliser la méthode `setLevel()`.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'log.level' => \Slim\Log::DEBUG
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $log = $app->getLog();
     $log->setLevel(\Slim\Log::WARN);
 
-Data Type
+Type du paramètre
 : integer
 
-Default Value
+Valeur par défaut
 : \Slim\Log::DEBUG
 
 ### log.enabled
 
-This enables or disables Slim's logger. To change this setting after instantiation you need to access Slim's logger
-directly and use its `setEnabled()` method.
+Cela active ou désactive le logueur de Slim. Pour changer ce paramètre après l'instanciation, il faut accéder au logueur de Slim et utiliser directement sa méthode `setEnabled()`.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'log.enabled' => true
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $log = $app->getLog();
     $log->setEnabled(true);
 
-Data Type
+Type du paramètre
 : boolean
 
-Default Value
+Valeur par défaut
 : true
 
 ### templates.path
 
-The relative or absolute path to the filesystem directory that contains your Slim application's template files.
-This path is referenced by the Slim application's View to fetch and render templates.
+Le chemin, relatif ou absolu, jusqu'au dossier qui contient vos templates d'application Slim.
+Ce chemin est utilisé par la vue de l'application Slim (View) pour trouver et utiliser les templates.
 
-To change this setting after instantiation you need to access Slim's view directly and use its `setTemplatesDirectory()`
-method.
+Pour changer ce paramètre après l'instanciation, vous devez accéder à la vue de Slim directement et utiliser sa méthode `setTemplatesDirectory()`.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'templates.path' => './templates'
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $view = $app->view();
     $view->setTemplatesDirectory('./templates');
 
-Data Type
+Type du paramètre
 : string
 
-Default Value
+Valeur par défaut
 : "./templates"
 
 ### view
 
-The View class or instance used by the Slim application. To change this setting after instantiation you need to
-use the Slim application's `view()` method.
+La classe View, plus précisément son instance, utilisé par l'application Slim. Pour changer ce paramètre après l'instanciation, il vous faut utiliser la méthode `view()`de l'application Slim.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'view' => new \My\View()
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->view(new \My\View());
 
-Data Type
+Type du paramètre
 : string|\Slim\View
 
-Default Value
+Valeur par défaut
 : \Slim\View
 
 ### cookies.encrypt
 
-Determines if the Slim app should encrypt its HTTP cookies.
+Détermines si l'application Slim doit chiffrer les cookies HTTP ou non.
 
     <?php
     $app = new \Slim\Slim(array(
         'cookies.encrypt' => true
     ));
 
-Data Type
+Type du paramètre
 : boolean
 
-Default Value
+Valeur par défaut
 : false
 
 ### cookies.lifetime
 
-Determines the lifetime of HTTP cookies created by the Slim application. If this is an integer, it must be a valid
-UNIX timestamp at which the cookie expires. If this is a string, it is parsed by the `strtotime()` function to extrapolate
-a valid UNIX timestamp at which the cookie expires.
+Paramètre la durée de vie d'un cookie HTTP créé par l'application Slim. Si c'est un entier, il doit être un timestamp UNIX valide, il représente la date à laquelle le cookie expire.
+Si c'est une chaine de caractèr, il est converti par la fonction `strtotime()` afin d'avoir un timestamp UNIX valide pour savoir quand le cookie expire.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.lifetime' => '20 minutes'
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.lifetime', '20 minutes');
 
-Data Type
+Type du paramètre
 : integer|string
 
-Default Value
+Valeur par défaut
 : "20 minutes"
 
 ### cookies.path
 
-Determines the default HTTP cookie path if none is specified when invoking the Slim application's `setCookie()` or
-`setEncryptedCookie()` methods.
+Détermine le chemin du cookie HTTP si aucun n'a déjà été spécifié quand la méthode `setCookie()`, ou encore `setEncryptedCookie()`, a été utilisée.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.path' => '/'
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.path', '/');
 
-Data Type
+Type du paramètre
 : string
 
-Default Value
+Valeur par défaut
 : "/"
 
 ### cookies.domain
 
-Determines the default HTTP cookie domain if none specified when invoking the Slim application's `setCookie()` or
-`setEncryptedCookie()` methods.
+Détermine le dommaine du cookie HTTP si aucun n'a déjà été spécifié quand la méthode `setCookie()`, ou encore `setEncryptedCookie()`, a été utilisée.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.domain' => 'domain.com'
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.domain', 'domain.com');
 
-Data Type
+Type du paramètre
 : string
 
-Default Value
+Valeur par défaut
 : null
 
 ### cookies.secure
 
-Determines whether or not cookies are delivered only via HTTPS. You may override this setting when invoking
-the Slim application's `setCookie()` or `setEncryptedCookie()` methods.
+Détermine si le cookie doit être délivré seulement en HTTPS ou non. Ce paramètre peut être changé lors de l'appel à la méthode `setCookie()`de Slim ou encore `setEncryptedCookie()`.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.secure' => false
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.secure', false);
 
-Data Type
+Type du paramètre
 : boolean
 
-Default Value
+Valeur par défaut
 : false
 
 ### cookies.httponly
 
-Determines whether or not cookies are delivered only via the HTTP protocol. You may override this setting when invoking
-the Slim application's `setCookie()` or `setEncryptedCookie()` methods.
+Détermine si le cookie doit être délivré seulement en HTTP ou non. Ce paramètre peut être changé lors de l'appel à la méthode `setCookie()`de Slim ou encore `setEncryptedCookie()`.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.httponly' => false
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.httponly', false);
 
-Data Type
+Type du paramètre
 : boolean
 
-Default Value
+Valeur par défaut
 : false
 
 ### cookies.secret_key
 
-The secret key used for cookie encryption. You should change this setting if you use encrypted HTTP cookies
-in your Slim application.
+La clé secrète utilisée pour chiffrer les cookies. Vous devez changer ce paramètre si vous utilisez des cookies HTTP chiffrés dans votre application Slim.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.secret_key' => 'secret'
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.secret_key', 'secret');
 
-Data Type
+Type du paramètre
 : string
 
-Default Value
+Valeur par défaut
 : "CHANGE_ME"
 
 ### cookies.cipher
 
-The mcrypt cipher used for HTTP cookie encryption. See [available ciphers](http://php.net/manual/en/mcrypt.ciphers.php).
+Le type de chiffrement utilisé pour le cookie HTTP. Voir [chiffrements disponibles](http://php.net/manual/fr/mcrypt.ciphers.php).
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.cipher' => MCRYPT_RIJNDAEL_256
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.cipher', MCRYPT_RIJNDAEL_256);
 
-Data Type
+Type du paramètre
 : integer
 
-Default Value
+Valeur par défaut
 : MCRYPT_RIJNDAEL_256
 
 ### cookies.cipher_mode
 
-The mcrypt cipher mode used for HTTP cookie encryption. See [available cipher modes](http://php.net/manual/en/mcrypt.ciphers.php).
+Le mode de chiffrement utilisé pour le cookie HTTP. Voir [modes de chiffrements disponibles](http://php.net/manual/fr/mcrypt.ciphers.php).
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'cookies.cipher_mode' => MCRYPT_MODE_CBC
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('cookies.cipher_mode', MCRYPT_MODE_CBC);
 
-Data Type
+Type du paramètre
 : integer
 
-Default Value
+Valeur par défaut
 : MCRYPT_MODE_CBC
 
 ### http.version
 
-By default, Slim returns an HTTP/1.1 response to the client. Use this setting if you need to return an HTTP/1.0
-response. This is useful if you use PHPFog or an nginx server configuration where you communicate with backend
-proxies rather than directly with the HTTP client.
+Par défaut, Slim retourne une réponse HTTP/1.1 au client. Il faut utiliser ce paramètre si vous voulez retourner une réponse HTTP/1.0. Cela peut-être utile si vous utilisez PHPFog ou un serveur nginx qui communique avec des proxies au lieu de répondre directement au client HTTP.
 
     <?php
-    // During instantiation
+    // Pendant l'instanciation
     $app = new \Slim\Slim(array(
         'http.version' => '1.1'
     ));
 
-    // After instantiation
+    // Après l'instanciation
     $app->config('http.version', '1.1');
 
-Data Type
+Type du paramètre
 : string
 
-Default Value
+Valeur par défaut
 : "1.1"
