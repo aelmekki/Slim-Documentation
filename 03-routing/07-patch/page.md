@@ -1,20 +1,19 @@
 ---
-title: PATCH Routes
+title: Les routes PATCH
 status: live
 ---
 
-Use the Slim application's `patch()` method to map a callback function to a resource URI that is requested with
-the HTTP PATCH method.
+Utilisez la méthode `patch()` de l'application Slim pour mapper une fonction de rappel à une URI qui est appelée avec une méthode HTTP PATCH.
 
     <?php
     $app = new \Slim\Slim();
     $app->patch('/books/:id', function ($id) {
-        // Patch book with given ID
+        // Patcher le livre avec l'ID donné
     });
 
-In this example, an HTTP PATCH request for “/books/1” will invoke the associated callback function, passing "1" as
-the callback function's argument.
+Dans cet exemple, une requête HTTP PATCH pour “/books/1” va appeler la fonction de rappel associée, le tout en passant “1” comme argument à cette fonction de rappel.
 
-The first argument of the Slim application's `patch()` method is the resource URI. The last argument is anything that
-returns `true` for `is_callable()`. Typically, the last argument will be an [anonymous function][anon-func].
+Le premier argument de la méthode `patch()` de l'application Slim est l'URI. Le dernier argument est un objet quelconque qui doit répondre au critère suivant: retourner `true` pour la fonction `is_callable()`.
+Typiquement, le dernier argument sera une [fonction anonyme][anon-func]
 
+[anon-func]: http://php.net/manual/fr/functions.anonymous.php

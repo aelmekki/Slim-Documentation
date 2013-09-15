@@ -1,36 +1,32 @@
 ---
-title: OPTIONS Routes
+title: Les routes OPTIONS
 status: live
 ---
 
-Use the Slim application's `options()` method to map a callback function to a resource URI that is requested with
-the HTTP OPTIONS method.
+Utilisez la méthode `options()` de l'application Slim pour mapper une fonction de rappel à une URI qui est appelée avec une méthode HTTP OPTIONS.
 
     <?php
     $app = new \Slim\Slim();
     $app->options('/books/:id', function ($id) {
-        //Return response headers
+        //Retourner les en-têtes
     });
 
-In this example, an HTTP OPTIONS request for “/books/1” will invoke the associated callback function, passing "1" as
-the callback function's argument.
+Dans cet exemple, une requête HTTP OPTIONS pour “/books/1” va appeler la fonction de rappel associée, le tout en passant “1” comme argument à cette fonction de rappel.
 
-The first argument of the Slim application's `options()` method is the resource URI. The last argument is anything that
-returns `true` for `is_callable()`. Typically, the last argument will be an [anonymous function][anon-func].
+Le premier argument de la méthode `options()` de l'application Slim est l'URI. Le dernier argument est un objet quelconque qui doit répondre au critère suivant: retourner `true` pour la fonction `is_callable()`.
+Typiquement, le dernier argument sera une [fonction anonyme][anon-func]
 
-### Method Override
+### Surcharge de méthode
 
-Unfortunately, modern browsers do not provide native support for HTTP OPTIONS requests. To work around this limitation,
-ensure your HTML form’s method attribute is “post”, then add a method override parameter to your HTML form like this:
+Malheureusement, les navigateurs web récents ne fournissent pas de support natif pour les requêtes HTTP DELETE. Pour supprimer cette limitation, assurez-vous que l'attribut method de votre formulaire HTML est “post”, ensuite, ajoutez une surcharge de méthode dans le formulaire HTML comme cela:
 
     <form action="/books/1" method="post">
-        ... other form fields here...
+        ... éléments du formulaire ici ...
         <input type="hidden" name="_METHOD" value="OPTIONS"/>
-        <input type="submit" value="Fetch Options For Book"/>
+        <input type="submit" value="Récupérer les options pour le livre"/>
     </form>
 
-If you are using [Backbone.js][backbone] or a command-line HTTP client, you may also override the HTTP method by
-using the **X-HTTP-Method-Override** header.
+Si vous utilisez [Backbone.js][backbone] ou un client HTTP en lignes de commandes, vous pouvez également surcharger la méthode HTTP en utilisant l'en-tête **X-HTTP-Method-Override**
 
-[anon-func]: http://php.net/manual/en/functions.anonymous.php
+[anon-func]: http://php.net/manual/fr/functions.anonymous.php
 [backbone]: http://documentcloud.github.com/backbone/

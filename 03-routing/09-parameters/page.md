@@ -1,46 +1,39 @@
 ---
-title: Route Parameters
+title: Les paramètres de route
 status: live
 ---
 
-You can embed parameters into route resource URIs. In this example, I have two parameters in my
-route URI, “:one” and “:two”.
+Vous pouvez intégrer des paramètres dans vos URIs. Par exemple, j'ai deux paramètres dans ma route, “:one” et “:two”.
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/books/:one/:two', function ($one, $two) {
-        echo "The first paramter is " . $one;
-        echo "The second parameter is " . $two;
+        echo "Le premier paramètre est " . $one;
+        echo "Le second paramètre est " . $two;
     });
 
-To create a URL parameter, prepend “:” to the parameter name in the route URI pattern. When the route matches the
-current HTTP request, the values for each route parameter are extracted from the HTTP request URI and are passed
-into the associated callback function in order of appearance.
+Pour créer un paramètre URI, ajoutez “:” en préfix au nom du paramètre dans le patron d'URI. Quand la route correspond à la requête courante, la valeur de chaque paramètre de la route est extraite de la requête HTTP et fournie à la fonction de rappel dans l'ordre d'apparition.
 
-### Wildcard route parameters
+### Paramètre de route générique
 
-You may also use wildcard route parameters. These will capture one or many URI segments that correspond to the route
-pattern’s wildcard parameter into an array. A wildcard parameter is identified by a “+” suffix; it otherwise acts
-the same as normal route parameters shown above. Here’s an example:
+Vous pouvez aussi utiliser des paramètres de route génériques. En faisant cela, l'application va capturer un ou plusieurs segments de l'URI qui correspondent au patron de la route et les renvoyer dans un tableau.
+Un paramètre générique est identifié par un suffixe “+”; il fonctionne, cela-dit, exactement comme un paramètre normal expliqué ici. Voici un exemple:
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/:name+', function ($name) {
-        // Do something
+        // Faire quelque chose
     });
 
-When you invoke this example application with a resource URI “/hello/Josh/T/Lockhart”, the route callback’s `$name`
-argument will be equal to `array('Josh', 'T', Lockhart')`.
+Quand vous utilisez cet exemple d'application avec une URI qui est “/hello/Josh/T/Lockhart”, l'argument de la fonction de rappel, `$name`, sera `array('Josh', 'T', Lockhart')`.
 
-### Optional route parameters
+### Segments de route optionnels
 
 <div class="alert alert-warning">
-    <strong>Heads Up!</strong> Optional route segments are experimental. They should only be used
-    in the manor demonstrated below.
+    <strong>Attention!</strong> Les segments de routes optionnels sont expérimentaux. Ils ne doivent être utilisés que dans la manière décrite ci-dessous.
 </div>
 
-You may also have optional route parameters. These are ideal for using one route for a blog archive. To declare
-optional route parameters, specify your route pattern like this:
+Vous pouvez aussi avoir des paramètres de route optionnels. C'est l'idéal pour utiliser une route qui va chercher les archives d'un blog. Pour déclarer ces paramètres optionnels, spécifiez votre patron de route comme cela:
 
     <?php
     $app = new Slim();
@@ -48,15 +41,13 @@ optional route parameters, specify your route pattern like this:
         echo sprintf('%s-%s-%s', $year, $month, $day);
     });
 
-Each subsequent route segment is optional. This route will accept HTTP requests for:
+Chaque ségment de route est facultatif. Cette route fonctionnera les requêtes HTTP suivantes: 
 
 * /archive
 * /archive/2010
 * /archive/2010/12
 * /archive/2010/12/05
 
-If an optional route segment is omitted from the HTTP request, the default values in the callback signature are
-used instead.
+Si un segment de route n'est pas présent dans la requête HTTP, la valeur par défaut dans la signature de la fonction de rappel sera utilisée à la place.
 
-Currently, you can only use optional route segments in situations like the example above where each route segment is
-subsequently optional. You may find this feature unstable when used in scenarios different from the example above.
+Actuellement, vous pouvez utiliser les segments de route facultatif dans des situations comme l'exemple ci-dessus, où chaque segment est optionnel. Vous allez peut-être trouver cette fonctionnalité instable lorsqu'elle sera utilisée dans des scénarios différents de l'exemple ci-dessus.
