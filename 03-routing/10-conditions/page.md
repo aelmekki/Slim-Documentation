@@ -1,45 +1,38 @@
 ---
-title: Route Conditions
+title: Conditions de Routage 
 status: live
 ---
 
-Slim lets you assign conditions to route parameters. If the specified conditions are not met, the route is not run.
-For example, if you need a route with a second segment that must be a valid 4-digit year, you could enforce
-this condition like this:
+Slim vous offre le possibilité de créer des paramètres qui agissent comme des conditions de routage. Si les paramètres ne sont pas validés, le routage ne s'effectue pas. Par exemple, si vous avez besoin d'une route avec un segment qui doit être une date à 4 chiffres, vous pouvez forcer cette condition comme cela:
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/archive/:year', function ($year) {
-        echo "You are viewing archives from $year";
+        echo "Vous visionnez les archives de l'année $year";
     })->conditions(array('year' => '(19|20)\d\d'));
 
-Invoke the Route object's `conditions()` method. The first and only argument is an associative array with keys that
-match any of the route’s parameters and values that are regular expressions.
+Utilisez la méthode `conditions()` de l'objet Route. Le premier et dernier argument est un tableau associatif, dont, les clés sont des paramètres de votre route (dans l'exemple *year*) et les valeurs des expressions régulières.
 
-### Application-wide route conditions
+### Condition de routage à l'échelle de l'application
 
-If many of your Slim application Routes accept the same parameters and use the same conditions, you can define
-default application-wide Route conditions like this:
+Si plusieurs de vos routes (dans une applications Slim) ont les mêmes paramètres et utilisent les mêmes conditions, vous pouvez définir des conditions de routage à l'échelle de l'application, comme cela:
 
     <?php
     \Slim\Route::setDefaultConditions(array(
         'firstName' => '[a-zA-Z]{3,}'
     ));
 
-Define application-wide route conditions before you define application routes. When you define a route, the route
-will automatically be assigned any application-wide Route conditions defined with `\Slim\Route::setDefaultConditions()`.
-If for whatever reason you need to get the application-wide default route conditions, you can fetch them with
-`\Slim\Route::getDefaultConditions()`. This static method returns an array exactly as the default route conditions
-were defined.
+Définissez ces conditions de routage d'application avant de définir vos routes. Quand vous définissez une route, elle va automatiquement s'attribuer les conditions de routage définies avec `\Slim\Route::setDefaultConditions()`.
+Si pour quelque raison que ce soit, vous avez besoin de retrouver vos conditions de routage d'application, vous pouvez les récupérer avec `\Slim\Route::getDefaultConditions()`. Cette méthode statique retourne un tableau qui contient les conditions exactement telles qu'elles ont été définies au départ.
 
-You may override a default route condition by redefining the route’s condition when you define the route, like this:
+Vous pouvez surcharger une condition de routage par défaut en redéfinissant la condition de routage lorsque vous définissez la route, comme ci-dessous:
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/:firstName', $callable)
         ->conditions(array('firstName' => '[a-z]{10,}'));
 
-You may append new conditions to a given route like this:
+Vous pouvez apprendre des nouvelles conditions à une route donnée comme cela:
 
     <?php
     $app = new \Slim\Slim();

@@ -1,51 +1,43 @@
 ---
-title: Route Middleware
-status: live
+title: Middleware de routage
+status: lives
 ---
 
-Slim enables you to associate middleware with a specific application route. When the given route matches the current
-HTTP request and is invoked, Slim will first invoke the associated middleware in the order they are defined.
+Slim vous permet d'associer des middleware à certaines routes. Quand une route donnée correspond à la requête HTTP et est appelée, Slim va d'abbord appeler les middlewares associés, dans l'ordre dans lesquels ils sont définis.
 
-### What is route middleware?
+### Qu'est-ce qu'un middleware de routage?
 
-Route middleware is anything that returns `true` for `is_callable`. Route middleware will be invoked in the sequence
-defined before its related route callback is invoked.
+Un middleware de routage est n'importe quoi qui retour `true` à `is_callable`. Un middleware de routage sera appelé dans l'ordre dans lequel il a été défini avant que la fonction de rappel soit appelée. 
 
-### How do I add route middleware?
+### Comment j'ajoute un middleware de routage?
 
-When you define a new application route with the Slim application’s `get()`, `post()`, `put()`, or `delete()` methods
-you must define a route pattern and a callable to be invoked when the route matches an HTTP request.
+Lorsque vous définissez une nouvelle route d'application avec les méthodes `get()`, `post()`, `put()`ou `delete()`, vous devez définir un patron de routage et une fonction qui sera appelée quand la route correspond à une requête HTTP.
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function () {
-        //Do something
+        //Faire quelque chose
     });
 
-In the example above, the first argument is the route pattern. The last argument is the callable to be invoked when
-the route matches the current HTTP request. The route pattern must always be the first argument. The route callable
-must always be the last argument.
+Dans l'exemple ci-dessus, le premier argument est le patron de routage. Le dernier argument est une fonction de rappel qui sera appelée quand une requête HTTP correspond à la route. Le patron de route doit toujours être le premier argument. La fonction de rappel doit toujours être le dernier argument
 
-You can assign middleware to this route by passing each middleware as a separate interior or... (ahem) middle...
-argument like this:
+Vous pouvez associer des middlewares à cette route en passant chaque middleware comme un argument au (vous vous en doutez) milieu... Comme cela:
 
     <?php
     function mw1() {
-        echo "This is middleware!";
+        echo "Je suis un middleware!";
     }
     function mw2() {
-        echo "This is middleware!";
+        echo "Je suis un middleware aussi!";
     }
     $app = new \Slim\Slim();
     $app->get('/foo', 'mw1', 'mw2', function () {
-        //Do something
+        //Faire quelque chose
     });
 
-When the /foo route is invoked, the `mw1` and `mw2` functions will be invoked in sequence before the route’s callable
-is invoked.
+Quand la route /foo est appelée, les fonctions `mw1` et `mw2` seront appelées dans l'ordre avant que la fonction de rappel soit appelée.
 
-Suppose you wanted to authenticate the current user against a given role for a specific route. You could use some
-closure magic like this:
+Admettons que vous voulez authentifier l'utilisateur courant et savoir son rôle pour une route spécifique. Vous pouvez utiliser cela:
 
     <?php
     $authenticateForRole = function ( $role = 'member' ) {
@@ -60,16 +52,16 @@ closure magic like this:
     };
     $app = new \Slim\Slim();
     $app->get('/foo', $authenticateForRole('admin'), function () {
-        //Display admin control panel
+        //Afficher le panneau d'administration
     });
 
-### What arguments are passed into each route middleware callable?
+### Quels arguments sont passés dans chaque middleware de routage?
 
-Each middleware callable is invoked with one argument, the currently matched `\Slim\Route` object.
+Chaque middleware est appelé avec 1 argument, l'objet `\Slim\Route` qui correspond à ce moment.
 
     <?php
     $aBitOfInfo = function (\Slim\Route $route) {
-        echo "Current route is " . $route->getName();
+        echo "La route courante est " . $route->getName();
     };
 
     $app->get('/foo', $aBitOfInfo, function () {
