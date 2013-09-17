@@ -3,14 +3,11 @@ title: Route Helpers
 status: live
 ---
 
-Slim provides several helper methods (exposed via the Slim application instance) that will help you control the flow
-of your application.
+Slim fourni une panoplie de méthodes d'aide (utilisables via une instance d'application de Slim) qui vous aident à contrôler le flux de votre application.
 
-Please be aware that the following application instance method helpers `halt()`, `pass()`, `redirect()` and `stop()`
-are implemented using Exceptions. Each will throw a `\Slim\Exception\Stop` or `\Slim\Exception\Pass` exception.
-Throwing the Exception in these cases is a simple way to stop user code from processing, have the framework take over,
-and  immediately send the necessary response to the client. This behavior can be surprising if unexpected. Take a look
-at the following code.
+Notez que les méthodes d'aide `halt()`, `pass()`, `redirect()` et `stop()` utilisent des Exceptions.
+Elles lanceront une exception du type `\Slim\Exception\Stop` ou encore `\Slim\Exception\Pass`.
+Lancer une Exception dans ces cas est une façon simple de stopper l'exécution du code de l'utilisateur, permettre au framework de prendre le dessus, et immédiatement envoyer la réponse nécessaire au client. Ce comportement peut être surprenant s'il n'est pas attendu. Regardez le code suivant:
 
     <?php
     $app->get('/', function() use ($app, $obj) {
@@ -23,14 +20,10 @@ at the following code.
         }
     });
 
-If `$obj->thisMightThrowException()` does throw an Exception the code will run as expected. However, if no exception
-is thrown the call to $app->redirect() will throw a `\Slim\Exception\Stop` Exception that will be caught by the
-user `catch` block rather than by the framework redirecting the browser to the "/error" page. Where possible
-in your own application you should use typed Exceptions so your `catch` blocks are more targeted rather than
-swallowing all Exceptions. In some situations the `thisMightThrowException()` might be an external component call
-that you don’t control, in which case typing all exceptions thrown may not be feasible. For these instances we can
-adjust our code slightly by moving the success `$app->redirect()` after the try/catch block to fix the issues.
-Since processing will stop on the error redirect this code will now execute as expected.
+Si `$obj->thisMightThrowException()` lance une Exception le code tournera comme attendu. Par contre, si aucune exception n'est lancée, l'appel à `$app->redirect()` lancera une Exception du type `\Slim\Exception\Stop` qui sera attrapée par le bloc `catch` de l'utilisateur, qui redirigera le navigateur vers la page d'erreur "/error".
+Là où c'est possible, vous devez utiliser des Exceptions typées, comme cela les blocs `catch` sont plus précis pour la gestion de l'erreur.
+Dans certaines situations, `thisMightThrowException()` peut être un composent externe que vous appelez et dont vous ne contrôlez rien. Dans ce cas, récupérer chaque type d'Exception n'est parfois pas faisable. 
+Pour ces cas, nous pouvons ajuster le code en déplaçant l' `$app->redirect()` après le try/catch pour résoudre ce cas. Comme le traitement s'arrête sur l'erreur de redirection, ce code va s'exécuter comme prévu.
 
     <?php
     $app->get('/', function() use ($app, $obj) {
@@ -43,59 +36,52 @@ Since processing will stop on the error redirect this code will now execute as e
         $app->redirect('/success');
     });
 
-### Halt
+### Arrêter
 
-The Slim application's `halt()` method will immediately return an HTTP response with a given status code and body.
-This method accepts two arguments: the HTTP status code and an optional message. Slim will immediately halt the current
-application and send an HTTP response to the client with the specified status and optional message (as the response body).
-This will override the existing `\Slim\Http\Response` object.
+La méthode `halt()` de Slim va automatiquement retourner une réponse HTTP avec un code et un corps voulu.
+Cette méthode accepte donc deux arguments: le statut HTTP et un message optionnel. Slim va immédiatement stopper l'application et renvoyer une réponse HTTP au client avec les arguments spécifiés (dont le message dans le corps).
+Cela va surcharger l'objet `\Slim\Http\Response` existant.
 
     <?php
     $app = new \Slim\Slim();
 
-    //Send a default 500 error response
+    // Renvoyer une erreur 500
     $app->halt(500);
 
-    //Or if you encounter a Balrog...
-    $app->halt(403, 'You shall not pass!');
+    // Ou si l'utilisateur rencontre une erreur d'accès 
+    $app->halt(403, 'Vous ne passerez pas!');
 
-If you would like to render a template with a list of error messages, you should use the Slim application's `render()`
-method instead.
+Si vous voulez utiliser un template avec une liste de messages d'erreur, vous devez utiliser la méthode `render()` de l'application Slim.
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function () use ($app) {
-        $errorData = array('error' => 'Permission Denied');
+        $errorData = array('error' => 'Permission refusée');
         $app->render('errorTemplate.php', $errorData, 403);
     });
     $app->run();
 
-The `halt()` method may send any type of HTTP response to the client: informational, success, redirect, not found,
-client error, or server error.
+La méthode `halt()` peut renvoyer tout type de réponse HTTP au client: informel, de succès, redirection, page non trouvée, erreur côté client, ou encore erreur côté serveur.
 
-### Pass
+### Passer
 
-A route can tell the Slim application to continue to the next matching route with the Slim application's `pass()`
-method. When this method is invoked, the Slim application will immediately stop processing the current matching route
-and invoke the next matching route. If no subsequent matching route is found, a **404 Not Found** response is sent to
-the client. Here is an example. Assume an HTTP request for “GET /hello/Frank”.
+Une route peut dire à l'application Slim de continuer jusqu'à la prochaine route qui fonctionnera avec la méthode `pass()` de l'application.
+Quand cette méthode est appelée, Slim va immédiatement stopper l'exécution de la route courante et appeler la prochaine route qui correspond. Si aucune route ne correspond plus, une réponse de type **404 Non Trouvée** est renvoyée au client. Voici un exemple, en considèrent une requête pour “GET /hello/Frank”.
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/Frank', function () use ($app) {
-        echo "You won't see this...";
+        echo "Vous ne verrez pas cela...";
         $app->pass();
     });
     $app->get('/hello/:name', function ($name) use ($app) {
-        echo "But you will see this!";
+        echo "Mais vous verrez cela!";
     });
     $app->run();
 
-### Redirect
+### Rediriger
 
-It is easy to redirect the client to another URL with the Slim application's `redirect()` method. This method accepts
-two arguments: the first argument is the URL to which the client will redirect; the second optional argument is the
-HTTP status code. By default the `redirect()` method will send a **302 Temporary Redirect** response.
+C'est simple de rediriger le client à une autre UTL avec la méthode `redirect()` de l'application Slim. Cette méthode accepte 2 arguments: le premier argument est l'URL sur laquelle le client sera redirigé; le second, optionnel, est un statut HTTP. Par défaut, la méthode `redirect()` va renvoyer une réponse de type **302 Redirection Temporaire**
 
     <?php
     $app = new \Slim\Slim();
@@ -104,8 +90,7 @@ HTTP status code. By default the `redirect()` method will send a **302 Temporary
     });
     $app->run();
 
-Or if you wish to use a permanent redirect, you must specify the destination URL as the first parameter and the
-HTTP status code as the second parameter.
+Ou si vous voulez utiliser une redirection permanente, vous devez spécifier l'URL de destination en premier argument et le statut HTTP en second argument.
 
     <?php
     $app = new \Slim\Slim();
@@ -114,41 +99,34 @@ HTTP status code as the second parameter.
     });
     $app->run();
 
-This method will automatically set the Location: header. The HTTP redirect response will be sent to the HTTP
-client immediately.
+Cette méthode va automatiquement ajouter le "Location: header". La réponse (une redirection) HTTP sera envoyée au client immédiatement.
 
-### Stop
+### Stopper
 
-The Slim application's `stop()` method will stop the Slim application and send the current HTTP response to the
-client as is. No ifs, ands, or buts.
+La méthode `stop()` de l'application Slim va stopper l'application et envoyer la réponse HTTP actuelle au client telle qu'elle est. Rien de plus.
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function () use ($app) {
-        echo "You will see this...";
+        echo "Vous verrez cela...";
         $app->stop();
-        echo "But not this";
+        echo "Mais pas cela";
     });
     $app->run();
 
 ### URL For
 
-The Slim applications' `urlFor()` method lets you dynamically create URLs for a named route so that, were a route
-pattern to change, your URLs would update automatically without breaking your application. This example demonstrates
-how to generate URLs for a named route.
+La méthode `urlFor()` vous permet de dynamiquement créer des URLs pour une route nommée. Ainsi, quand un patron de route change, les URLs vont automatiquement se mettre à jour sans briser l'application. Cet exemple montre comment générer des URLs pour une route nommée.
 
     <?php
     $app = new \Slim\Slim();
 
-    //Create a named route
+    //Créer une route nommée
     $app->get('/hello/:name', function ($name) use ($app) {
         echo "Hello $name";
     })->name('hello');
 
-    //Generate a URL for the named route
+    //Générer une url pour une route nommée
     $url = $app->urlFor('hello', array('name' => 'Josh'));
 
-In this example, $url is “/hello/Josh”. To use the `urlFor()` method, you must first assign a name to a route.
-Next, invoke the `urlFor()` method. The first argument is the name of the route, and the second argument is an
-associative array used to replace the route’s URL parameters with actual values; the array’s keys must match
-parameters in the route’s URI and the values will be used as substitutions.
+Dans cet exemple, `$url` vaut “/hello/Josh”. Pour utiliser la méthode `urlFor()`, vous devez, premièrement, donner un nom à une route. Ensuite, appeler la méthode `urlFor()`. Le premier argument est le nom de la route, et, le deuxième argument est un tableau associatif, utilisé pour remplacer les paramètres d'URL de la route avec les valeurs actuelles; les clés du tableau doivent correspondre avec les paramètres de la route dans l'URI et les valeurs seront utilisées en substitution.
