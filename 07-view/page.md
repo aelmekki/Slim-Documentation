@@ -1,4 +1,4 @@
 ---
-title: View
+title: Vue
 status: live
 ---

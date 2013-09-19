@@ -1,40 +1,34 @@
 ---
-title: Custom Views
+title: Vues personnalisées
 status: live
 ---
 
-A Slim application delegates rendering of templates to its view object. A custom view is a subclass
-of `\Slim\View` that implements this interface:
+Une application Slim délègue le rendu de ses modèles à son objet view. Une vue personnalisée est une classe fille de `\Slim\View` qui implémente l'interface:
 
     <?php
     public render(string $template);
 
-The view object's `render` method must return the rendered content of the template specified by its
-`$template` argument. When the custom view’s render method is invoked, it is passed the desired template
-pathname (relative to the Slim application's “templates.path” setting) as its argument. Here's an example
-custom view:
+La méthode `render` de l'objet view doit retourner le contenu généré dans le template spécifié par son paramètre `$template`. Quand la méthode `render` d'un objet view parsonnalisé est appelée, le chemin du template (relatif au paramètre “templates.path” de l'application Slim) est passé comme son argument. Voici un exemple de vue personnalisée (ou d'objet view personnalisé):
 
     <?php
     class CustomView extends \Slim\View
     {
         public function render($template)
         {
-            return 'The final rendered template';
+            return 'Le rendu final généré';
         }
     }
 
-The custom view can do whatever it wants internally so long as it returns the template’s rendered output as a string.
-A custom view makes it easy to integrate popular PHP template systems like Twig or Smarty.
+La vue personnalisée peut faire ce qu'elle veut tant qu'elle renvoie le rendu comme une chaîne de caractères. 
+Une vue personnalisée rend facile d'intégrer un système de template PHP comme Twig ou Smarty.
 
 <div class="alert alert-info">
-    <strong>Heads Up!</strong> A custom view may access data passed to it by the Slim application’s
-    <code>render()</code> method with <code>$this->data</code>.
+    <strong>Attention!</strong> Une vue personnalisée peut accéder à des données qui lui sont passées par <code>render()</code> via <code>$this->data</code>.
 </div>
 
-You can browse ready-to-use custom views that work with popular PHP template engines in the Slim-Extras repository
-on GitHub.
+Vous pouvez parcourir des vues personnalisées prêtes à l'emploi qui fonctionnent avec des moteurs de template PHP dans le répertoire Slim-Extras sur GitHub.
 
-### Example View
+### Exemple de vue
 
     <?php
     class CustomView extends \Slim\View
@@ -46,10 +40,9 @@ on GitHub.
         }
     }
 
-### Example Integration
+### Exemple d'intégration
 
-If the custom view is not discoverable by a registered autoloader, it must be required before the Slim application
-is instantiated.
+Si la vue personnalisée n'est pas trouvée par un autoloader enregistré, elle doit être requise avant que l'application Slim soit instanciée.
 
     <?php
     require 'CustomView.php';

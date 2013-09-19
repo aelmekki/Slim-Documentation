@@ -39,6 +39,9 @@ Translate the content of each Markdown file, including the YAML front-matter
 **Spanish (In Progress)**<br/>
 <https://github.com/jahvi/Slim-Documentation>
 
+**French (In Progress)**<br />
+This repo is the French translation of the Slim-Documentation
+
 ## Owner
 
 [Josh Lockhart](http://www.joshlockhart.com)
