@@ -1,22 +1,18 @@
 ---
-title: Response Headers
+title: En-têtes de réponse
 status: live
 ---
 
 
-The HTTP response returned to the HTTP client will have a header. The HTTP header is a list of keys and values that
-provide metadata about the HTTP response. You can use the Slim application’s response object to set the HTTP
-response’s header. The response object has a public property `headers` that is an instance of `\Slim\Helper\Set`;
-this provides a simple, standardized interface to manipulate the HTTP response headers.
+La réponse HTTP retournée au client HTTP aura un en-tête. Un en-tête HTTP est une liste de clés-valeurs qui fournit des métadonnées sur la réponse HTTP. Vous pouvez utiliser l'objet response de l'application Slim pour assigner cet en-tête. L'objet response dispose d'une propriété publique `headers` qui est une instance de `\Slim\Helper\Set`; cela fournit une interface simple, standardisée, pour manipuler les en-têtes de réponse HTTP.
 
     <?php
     $app = new \Slim\Slim();
     $app->response->headers->set('Content-Type', 'application/json');
 
-You may also fetch headers from the response object's `headers` property, too:
+Vous pouvez aussi récuperer les en-têtes de l'objet response aussi:
 
     <?php
     $contentType = $app->response->headers->get('Content-Type');
 
-If a header with the given name does not exist, `null` is returned. You may specify header names with upper, lower,
-or mixed case with dashes or underscores. Use the naming convention with which you are most comfortable.
+Si un en-tête avec un nom donné n'existe pas, `null` est renvoyé. Vous pouvez spécifier des noms d'en-têtes en majuscules, minuscules, mixés, avec des underscores ou des tirets. Utilisez la convention de nommage avec laquelle vous vous sentez à l'aise.

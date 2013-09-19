@@ -1,24 +1,21 @@
 ---
-title: Response Helpers
+title: Aides
 status: live
 ---
 
-The response object provides helper methods to inspect and interact with the underlying HTTP response.
+L'objet response fourni des méthodes d'aide pour inspecter et interagir avec la réponse HTTP.
 
 ### Finalize
 
-The response object’s `finalize()` method returns a numeric array of `[status, header, body]`. The status is
-an integer; the header is an iterable data structure; and the body is a string. Were you to create a new
-`\Slim\Http\Response` object in your Slim application or its middleware, you would call the response object's
-`finalize()` method to produce the status, header, and body for the underlying HTTP response.
+La méthode `finalize()` de l'objet response retourne un tableau `[statut, en-tête, corps]`. Le statut est un entier; le header est une structure de données itérables; et le corps une chaîne de caractères. Que vous créiez un nouvel objet `\Slim\Http\Response` dans l'application Slim ou un middleware, vous devez appeler la méthode `finalize()` pour produire le statut, l'en-tête et le corps de la réponse HTTP.
 
     <?php
     /**
-     * Prepare new response object
+     * Préparer un nouvel objet response
      */
     $res = new \Slim\Http\Response();
     $res->setStatus(400);
-    $res->write('You made a bad request');
+    $res->write('Vous avez fait une mauvaise requête');
     $res->headers->set('Content-Type', 'text/plain');
 
     /**
@@ -26,50 +23,48 @@ an integer; the header is an iterable data structure; and the body is a string. 
      * @return [
      *     200,
      *     ['Content-type' => 'text/plain'],
-     *     'You made a bad request'
+     *     'Vous avez fait une mauvaise requête'
      * ]
      */
     $array = $res->finalize();
 
-### Redirect
+### Redirection
 
-The response object’s `redirect()` method will set the response status and its **Location:** header needed to
-return a **3xx Redirect** response.
+La méthode `redirect()` de l'objet response va assigner le statut et l'en-tête  **Location:** nécessaires pour renvoyer une réponse **3xx Redirect**.
 
     <?php
     $app->response->redirect('/foo', 303);
 
-### Status Introspection
+### Introspection de statut
 
-The response object provides other helper methods to inspect its current status. All of the following methods
-return a boolean value:
+L'objet response fourni d'autres méthodes d'aide pour inspecter son statut courant. Toutes les méthodes qui suivent renvoient un booléen:
 
     <?php
     $res = $app->response;
 
-    //Is this an informational response?
+    // Est-ce une réponse informelle?
     $res->isInformational();
 
-    //Is this a 200 OK response?
+    // Est-ce une réponse 200?
     $res->isOk();
 
-    //Is this a 2xx successful response?
+    // Est-ce une réponse de type 2XX?
     $res->isSuccessful();
 
-    //Is this a 3xx redirection response?
+    // Est-ce une réponse de type 3XX?
     $res->isRedirection();
 
-    //Is this a specific redirect response? (301, 302, 303, 307)
+    // Est-ce une réponse de redirection spécifique? (301, 302, 303, 307)
     $res->isRedirect();
 
-    //Is this a forbidden response?
+    // Est-ce une réponse interdite?
     $res->isForbidden();
 
-    //Is this a not found response?
+    // Est-ce une réponse de type non-trouvé?
     $res->isNotFound();
 
-    //Is this a client error response?
+    // Est-ce une erreur de réponse du client?
     $res->isClientError();
 
-    //Is this a server error response?
+    // Est-ce une erreur de réponse du serveur?
     $res->isServerError();

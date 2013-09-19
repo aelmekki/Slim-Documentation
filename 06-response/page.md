@@ -1,4 +1,4 @@
 ---
-title: Response
+title: Réponse
 status: live
 ---
