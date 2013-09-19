@@ -1,61 +1,60 @@
 ---
-title: Request Method
+title: Méthodes de la requête
 status: live
 ---
 
-Every HTTP request has a method (e.g. GET or POST). You can obtain the current HTTP request method via the Slim
-application’s request object:
+Chaque requête HTTP a une méthode (par exemple GET ou POST). Vous pouvez obtenir la requête HTTP courante via l'objet request de Slim:
 
     /**
-     * What is the request method?
+     * Quelle est la méthode de la requête?
      * @return string (e.g. GET, POST, PUT, DELETE)
      */
     $app->request->getMethod();
 
     /**
-     * Is this a GET request?
+     * Est-ce une requête GET?
      * @return bool
      */
     $app->request->isGet();
 
     /**
-     * Is this a POST request?
+     * Est-ce une requête POST?
      * @return bool
      */
     $app->request->isPost();
 
     /**
-     * Is this a PUT request?
+     * Est-ce une requête PUT?
      * @return bool
      */
     $app->request->isPut();
 
     /**
-     * Is this a DELETE request?
+     * Est-ce une requête DELETE?
      * @return bool
      */
     $app->request->isDelete();
 
     /**
-     * Is this a HEAD request?
+     * Est-ce une requête HEAD?
      * @return bool
      */
     $app->request->isHead();
 
     /**
-     * Is this a OPTIONS request?
+     * Est-ce une requête OPTIONS?
      * @return bool
      */
     $app->request->isOptions();
 
     /**
-     * Is this a PATCH request?
+     * Est-ce une requête PATCH?
      * @return bool
      */
     $app->request->isPatch();
 
     /**
-     * Is this a XHR/AJAX request?
+     * Est-ce une requête XHR/AJAX?
      * @return bool
      */
     $app->request->isAjax();

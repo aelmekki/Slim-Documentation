@@ -1,10 +1,9 @@
 ---
-title: Request Body
+title: Corps de requête
 status: live
 ---
 
-Use the request object's `getBody()` method to fetch the raw HTTP request body sent by the HTTP client. This is
-particularly useful for Slim application's that consume JSON or XML requests.
+Utilisez la méthode `getBody()` de l'objet `request` pour récupérer le corps HTML envoyé par le client HTTP. C'est très utile pour une application qui lit des requêtes en JSON ou XML.
 
     <?php
     $app = new \Slim\Slim();

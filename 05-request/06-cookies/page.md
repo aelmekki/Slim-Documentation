@@ -1,32 +1,25 @@
 ---
-title: Request Cookies
+title: Les Cookies 
 status: live
 ---
 
-### Get Cookies
+### Récupérer les cookies
 
-A Slim application will automatically parse cookies sent with the current HTTP request. You can fetch cookie values
-with the Slim application’s `getCookie()` helper method like this:
+Une application Slim va automatiquement parser les cookies envoyées avec la requête HTTP. Vous pouvez récupérer les valeurs de cookies avec la méthode d'aide `getCookie()` de Slim, comme cela:
 
     <?php
     $app = new \Slim\Slim();
     $foo = $app->getCookie('foo');
 
-Only Cookies sent with the current HTTP request are accessible with this method. If you set a cookie during the
-current request, it will not be accessible with this method until the subsequent request. Bear in mind the \Slim\Slim
-object's `getCookie()` method is a convenience. You may also retrieve the complete set of HTTP request cookies
-directly from the \Slim\Http\Request object like this:
+Seuls les cookies envoyés avec la requête HTTP courante sont accessibles avec cette méthode. Si vous assignez un cookie durant la requête courante, il ne sera pas accessible avec cette méthode avant la requête. Vous pouvez aussi récupérer la liste complète des cookies de la requête HTTP via l'objet \Slim\Http\Request:
 
     <?php
     $cookies = $app->request->cookies;
 
-This will return an instance of \Slim\Helper\Set so you can use its simple, standardized interface to inspect the
-request's cookies.
+Cela va retourner une instance de \Slim\Helper\Set dont vous pouvez utiliser l'interface pour inspecter les cookies.
 
-### Cookie Encryption
+### Chiffrage de cookie
 
-You can optionally choose to encrypt all cookies stored on the HTTP client with the Slim app's `cookies.encrypt`
-setting. When this setting is `true`, all cookies will be encrypted using your designated secret key and cipher.
+Vous pouvez, optionnellement, choisir de chiffre vos cookies stockés chez le client HTTP avec le paramètre `cookies.encrypt` de Slim. Quand ce paramètre est `true`, tous les cookies seront chiffrés en utilisant la clé et la méthode définies.
 
-It's really that easy. Cookies will be encrypted automatically before they are sent to the client. They will also
-be decrypted on-demand when you request them with `\Slim\Slim::getCookie()` during subsequent requests.
+C'est aussi simple que cela. Les cookies seront chiffrés automatiquement avant d'être envoyés chez le client. Ils seront aussi déchiffrés sur demande quand vous les demandez avec `\Slim\Slim::getCookie()`.

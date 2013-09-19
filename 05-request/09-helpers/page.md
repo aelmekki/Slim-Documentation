@@ -1,53 +1,53 @@
 ---
-title: Request Helpers
+title: Outlis de requête
 status: live
 ---
 
-The Slim application's request object provides several helper methods to fetch common HTTP request information:
+L'objet request de l'application Slim fourni une liste de méthodes d'aide pour récupérer des informations courantes dans les requêtes HTTP:
 
-### Content Type
+### Type de contenu
 
-Fetch the request's content type (e.g. "application/json;charset=utf-8"):
+Récupérez le type de contenu de la requête (par exemple "application/json;charset=utf-8"):
 
     <?php
     $req = $app->request;
     $req->getContentType();
 
-### Media Type
+### Type de media
 
-Fetch the request's media type (e.g. "application/json"):
+Récupérez le type de média de la requête (par exemple "application/json"):
 
     <?php
     $req = $app->request;
     $req->getMediaType();
 
-### Media Type Params
+### Paramètres du type de média
 
-Fetch the request's media type parameters (e.g. [charset => "utf-8"]):
+Récupérez les paramètres du type de média de la requête (par exemple [charset => "utf-8"]):
 
     <?php
     $req = $app->request;
     $req->getMediaTypeParams();
 
-### Content Charset
+### Charset de contenu
 
-Fetch the request's content character set (e.g. "utf-8"):
+Récupérez le charset de contenu (par exemple "utf-8"):
 
     <?php
     $req = $app->request;
     $req->getContentCharset();
 
-### Content Length
+### Taille du contenu
 
-Fetch the request's content length:
+Récupérez la taille du contenu
 
     <?php
     $req = $app->request;
     $req->getContentLength();
 
-### Host
+### L'hôte
 
-Fetch the request's host (e.g. "slimframework.com"):
+Récupérez l'hôte de la requête (par exemple "slimframework.com"):
 
     <?php
     $req = $app->request;
@@ -55,7 +55,7 @@ Fetch the request's host (e.g. "slimframework.com"):
 
 ### Host with Port
 
-Fetch the request's host with port (e.g. "slimframework.com:80"):
+Récupérez l'hôte de la requête avec le port (par exemple "slimframework.com:80"):
 
     <?php
     $req = $app->request;
@@ -63,23 +63,23 @@ Fetch the request's host with port (e.g. "slimframework.com:80"):
 
 ### Port
 
-Fetch the request's port (e.g. 80):
+Récupérez le port de la requête (par exemple 80):
 
     <?php
     $req = $app->request;
     $req->getPort();
 
-### Scheme
+### Schéma
 
-Fetch the request's scheme (e.g. "http" or "https"):
+Récupérez le schéma de la requête (par exemple "http" ou "https"):
 
     <?php
     $req = $app->request;
     $req->getScheme();
 
-### Path
+### Chemin
 
-Fetch the request's path (root URI + resource URI):
+Récupérez le chemin de la requête (root URI + resource URI):
 
     <?php
     $req = $app->request;
@@ -87,23 +87,23 @@ Fetch the request's path (root URI + resource URI):
 
 ### URL
 
-Fetch the request's URL (scheme + host [ + port if non-standard ]):
+Récupérez l'URL de la requête (scheme + host [ + port si non standard ]):
 
     <?php
     $req = $app->request;
     $req->getUrl();
 
-### IP Address
+### Adresse IP 
 
-Fetch the request's IP address:
+Récupérez l'adresse IP de la requête:
 
     <?php
     $req = $app->request;
     $req->getIp();
 
-### Referer
+### Référant
 
-Fetch the request's referrer:
+Récupérez le référant de la requête:
 
     <?php
     $req = $app->request;
@@ -111,7 +111,7 @@ Fetch the request's referrer:
 
 ### User Agent
 
-Fetch the request's user agent string:
+Récupérez le user agent de la requête:
 
     <?php
     $req = $app->request;

@@ -1,21 +1,17 @@
 ---
-title: Request Headers
+title: En-têtes de requête
 status: live
 ---
 
-A Slim application will automatically parse all HTTP request headers. You can access the request headers using the
-request object's public `headers` property. The `headers` property is an instance of `\Slim\Helper\Set`, meaning
-it provides a simple, standardized interface to interactive with the HTTP request headers.
+Une application Slim va automatiquement parser touts les en-têtes d'une requête HTTP. Vous pouvez accéder à ces en-têtes en utilisant le membre public `headers` de l'objet `request`. La propriété `headers` est une instance de `\Slim\Helper\Set`, cela veut dire qu'il fournit une interface simple et standard pour interagir avec les en-têtes de la requête HTTP.
 
     <?php
     $app = new \Slim\Slim();
 
-    // Get request headers as associative array
+    // Récuperer les en-têtes dans un tableau associatif
     $headers = $app->request->headers;
 
-    // Get the ACCEPT_CHARSET header
+    // Récuperer l'en-tête ACCEPT_CHARSET
     $charset = $app->request->headers->get('ACCEPT_CHARSET');
 
-The HTTP specification states that HTTP header names may be uppercase, lowercase, or mixed-case. Slim is smart enough
-to parse and return header values whether you request a header value using upper, lower, or mixed case header name,
-with either underscores or dashes. So use the naming convention with which you are most comfortable.
+Les spécifications HTTP précisent que les noms d'en-tête peuvent être en majuscule, minuscules ou un mixte des deux. Slim est suffisamment intelligent pour parser et retourner une valeur d'en-tête quelle qu'en soit l'écriture que vous avez utilisé (minuscules, majuscules, mixte) pour le nom, le tout avec soit des underscores ou des tirets. Utilisez donc les conventions de nommage que vous préférez.

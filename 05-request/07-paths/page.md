@@ -1,39 +1,32 @@
 ---
-title: Request Paths
+title: Chemins de requête
 status: live
 ---
 
-Every HTTP request received by a Slim application will have a root URI and a resource URI.
+Chaque requête HTTP reçue par l'application Slim aura une racine URI (root URI) et une ressource URI  (Resource URI)
 
-### Root URI
+### Racine URI
 
-The **root URI** is the physical URL path of the directory in which the Slim application is instantiated and run.
-If a Slim application is instantiated in **index.php** within the top-most directory of the virtual host’s
-document root, the root URI will be an empty string. If a Slim application is instantiated and run in **index.php**
-within a physical subdirectory of the virtual host’s document root, the root URI will be the path to that
-subdirectory with a leading slash and without a trailing slash.
+La **racine URI** est le chemin URL physique jusqu'au directoire dans lequel l'application Slim est instanciée et tourne. Si une application Slim est instanciée dans **index.php** au sein du répertoire de tête de l'hôte virtuel (document root), la racine URI sera une chaîne de caractères vide. Si l'application Slim est instanciée et tourne dans **index.php**, au sein d'un sous-répertoire physique de la machine, la racine URI sera le chemin jusqu'à ce sous-répertoire avec un slash au début et sans slash de fin.
 
-### Resource URI
+### Ressource URI
 
-The **resource URI** is the virtual URI path of an application resource. The resource URI will be matched to the
-Slim application’s routes.
+La **ressource URI** est le chemin virtuel d'URI jusqu'à une ressource de l'application. La ressource URI sera comparée aux routes de l'application Slim.
 
-Assume the Slim application is installed in a physical subdirectory **/foo** beneath your virtual host’s document root.
-Also assume the full HTTP request URL (what you’d see in the browser location bar) is **/foo/books/1**. The root URI
-is **/foo** (the path to the physical directory in which the Slim application is instantiated) and the resource URI
-is **/books/1** (the path to the application resource).
+En considérant que l'application Slim est installée dans un sous-répertoire physique **/foo** dans votre document root.
+En considérant aussi que l'URL de la requête HTTP (dans la barre de navigation du navigateur) est **/foo/books/1**. La racine URI est **/foo** (chemin jusqu'au répertoire physique où se trouve Slim), et la ressource URI est 
+Also assume the full HTTP request URL (what you’d see in the browser location bar) is . The root URI **/books/1**, chemin jusqu'à la ressource de l'application.
 
-You can get the HTTP request’s root URI and resource URI with the request object's
-`getRootUri()` and `getResourceUri()` methods:
+Vous pouvez récupérer les racine et ressource URI de la requête HTTP avec les méthodes `getRootUri()` et `getResourceUri()` de l'objet request:
 
     <?php
     $app = new \Slim\Slim();
 
-    // Get request object
+    // Récupère l'objet request 
     $req = $app->request;
 
-    //Get root URI
+    // Récupère la racine URI
     $rootUri = $req->getRootUri();
 
-    //Get resource URI
+    // Récupère la ressource URI
     $resourceUri = $req->getResourceUri();
