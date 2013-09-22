@@ -1,18 +1,15 @@
 ---
-title: Expires
+title: Expiration
 status: live
 ---
 
-Used in conjunction with the Slim application’s `etag()` or `lastModified()` methods, the `expires()` method sets an
-**Expires** header on the HTTP response informing the HTTP client when its client-side cache for the current
-resource should be considered stale. The HTTP client will continue serving from its client-side cache until the
-expiration date is reached, at which time the HTTP client will send a conditional GET request to the Slim application.
+Utilisé en conjonction avec les méthodes `etag()` ou `lastModified()`, la méthode `expires()` met un en-tête HTTP de type **Expires** dans la réponse pour informer  le client HTTP quand son cache pour la ressource actuelle doit être considéré comme expiré. Le client HTTP continuerade se servir de son cache côté client tant que la date d'expiration n'est pas atteinte.
 
-The `expires()` method accepts one argument: an integer UNIX timestamp, or a string to be parsed with `strtotime()`.
+La méthode `expires()` accepte un seul argument: un timestamp UNIX (entier), ou une chaîne de caractères qui sera parsée par `strtotime()`.
 
     <?php
     $app->get('/foo', function () use ($app) {
-        $app->etag('unique-resource-id');
+        $app->etag('ressource-id-unique');
         $app->expires('+1 week');
-        echo "This will be cached client-side for one week";
+        echo "Cela sera stocké dans le cache client pendant 1 semaine";
     });

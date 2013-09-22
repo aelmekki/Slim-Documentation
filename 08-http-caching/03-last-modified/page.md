@@ -1,23 +1,17 @@
 ---
-title: Last Modified
+title: Dernière modification
 status: live
 ---
 
-A Slim application provides built-in support for HTTP caching using the resource’s last modified date. When you
-specify a last modified date, Slim tells the HTTP client the date and time the current resource was last modified.
-The HTTP client will then send a **If-Modified-Since** header with each subsequent HTTP request for the given
-resource URI. If the last modification date you specify matches the **If-Modified-Since** HTTP request header,
-the Slim application will return a **304 Not Modified** HTTP response that will prompt the HTTP client to use
-its cache; this also prevents the Slim application from serving the entire markup for the resource URI saving
-bandwidth and response time.
+Une application Slim fournit un support intégré pour la mise en cache HTTP en utilisant date de dernière modification de la ressource. Lorsque vous spécifiez une date de dernière modification, Slim indique au client HTTP la date et l'heure à laquelle la ressource actuelle a été modifiée. Le client HTTP envoie alors un en-tête ** If-Modified-Since ** avec chaque requête HTTP suivante pour la donnée (URI) de la ressource. Si la date de dernière modification que vous spécifiez correspond aux en-têtes ** If-Modified-Since ** de requête HTTP,
+l'application Slim va retourner une ** 304 ** non modifiée dans la réponse HTTP, ce qui incitera le client HTTP à utiliser son cache et ce qui empêche aussi l'application Slim de servir l'ensemble de la page ou de la ressource ce qui fait économiser bande passante et temps de réponse.
 
-Setting a last modified date with Slim is very simple. You only need to invoke the Slim application's `lastModified()`
-method in your route callback passing in a UNIX timestamp of the last modification date for the given resource.
-Be sure the `lastModified()` method’s timestamp updates along with the resource’s last modification date; otherwise,
-the browser client will continue serving its outdated cache.
+Définir une date de dernière modification avec Slim est très simple. Vous avez seulement besoin d'invoquer la méthode `lastModified()` de Slim () dans votre fonction de rappel, le tout en passant un timestamp UNIX, date de dernière modification de la ressource donnée.
+Assurez-vous que le timestamp  de la méthode `lastModified ()` se mette à jour avec la ressource, sinon,
+le client HTTP va continuer à se servir son cache...
 
     <?php
     $app->get('/foo', function () use ($app) {
         $app->lastModified(1286139652);
-        echo "This will be cached after the initial request!";
+        echo "Sera mis en cache après cette requête!";
     });
