@@ -10,7 +10,7 @@ The Slim Framework implémente une version du protocole Rack. En conséquence, u
 Pensez à une application Slim comme le coeur d'un oignon. Chaque couche de l'oignon est un middleware. Lorsque vous appelez la méthode `run()` d'une application Slim, la couche la plus externe (le middleware) est appelée en premier. Lorsque vous êtes prêt, ce middleware est responsable de l'invocation éventuellement le middleware suivant. Ce processus va de plus en plus profond dans l'oignon - à travers chaque couche de middleware - jusqu'à ce que le noyau de l'application Slim soit appelée. Ce processus étagé est possible parce que chaque couche de middleware, et l'application Slim elle-même, implémentent une méthode publique `call()`.
 Lorsque vous ajoutez un nouveau middleware pour une application Slim, le middleware ajouté deviendra une nouvelle couche extérieure et va entourer la couche précédente de middleware (si il y en a une) ou l'application Slim elle-même.
 
-### Reference de l'Application 
+### Références de l'Application 
 
 Le but de middleware consiste à inspecter, analyser, ou de modifier l'environnement d'application, demander et répondre avant et/ou après que l'application Slim soit invoquée. Il est facile pour chaque middleware d'obtenir des références pour l'application Slim  principale, son environnement, sa demande et sa réponse:
 
