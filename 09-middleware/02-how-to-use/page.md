@@ -1,34 +1,33 @@
 ---
-title: How to Use Middleware
+title: Comment utiliser un Middleware
 status: live
 ---
 
-Use the Slim application’s `add()` instance method to add new middleware to a Slim application. New middleware will
-surround previously added middleware, or the Slim application itself if no middleware has yet been added.
+Utilisez la méthode `add()` d'une application Slim pour ajouter un nouveau middleware à une application. Un nouveau middleware va suivre le dernier middleware ajouté, ou l'application Slim en elle-même si aucun middleware n'a encore été ajouté.
 
-### Example Middleware
+### Exemple de Middleware
 
-This example middleware will capitalize the Slim application's HTTP response body.
+Ce middleware d'exemple va mettre en majuscule le corps de la réponse HTTP de l'application Slim.
 
     <?php
     class AllCapsMiddleware extends \Slim\Middleware
     {
         public function call()
         {
-            // Get reference to application
+            // Récupérer la référence de l'application
             $app = $this->app;
 
-            // Run inner middleware and application
+            // Exécuter les middleware internes et Slim.
             $this->next->call();
 
-            // Capitalize response body
+            // Mettre en majuscule la réponse
             $res = $app->response;
             $body = $res->getBody();
             $res->setBody(strtoupper($body));
         }
     }
 
-### Add Middleware
+### Ajouter un Middleware
 
     <?php
     $app = new \Slim\Slim();
@@ -38,8 +37,6 @@ This example middleware will capitalize the Slim application's HTTP response bod
     });
     $app->run();
 
-The Slim application’s `add()` method accepts one argument: a middleware instance. If the middleware instance requires
-special configuration, it may implement its own constructor so that it may be configured before it is added to the
-Slim application.
+La méthode `add()` de Slim accepte un seul argument: une instance de middleware. Si l'instance de middleware nécessite une configuration spéciale, elle doit implémenter son propre constructeur pour être configurée avant d'être ajoutée à une application Slim.
 
-When the example Slim application above is run, the HTTP response body will be an enthusiastic "HELLO";
+Quand l'exemple d'application Slim ci-dessus est exécuté, le corps réponse HTTP sera un "HELLO".

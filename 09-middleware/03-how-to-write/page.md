@@ -1,15 +1,11 @@
 ---
-title: How to Write Middleware
+title: Comment écrire un Middleware
 status: live
 ---
 
-Slim application middleware must subclass `\Slim\Middleware` and implement a public `call()` method. The `call()`
-method does not accept arguments. Middleware may implement its own constructor, properties, and methods. I encourage
-you to look at Slim’s built-in middleware for working examples (e.g. Slim/Middleware/ContentTypes.php or
-Slim/Middleware/SessionCookie.php).
-
-This example is the most simple implementation of Slim application middleware. It extends `\Slim\Middleware`,
-implements a public `call()` method, and calls the next inner middleware.
+Un middleware d'application Slim doit hériter de  `\Slim\Middleware` et implémenter une méthode publique `call()`. La méthode `call()` ne prend pas d'argument. Un middleware peut implémenter son propre constructeur, ses propriétés et ses méthodes. Je vous encourage à regarder les middlewares de Slim (par exemplesSlim/Middleware/ContentTypes.php ou encore Slim/Middleware/SessionCookie.php).
+`\Slim\Middleware`,
+Cet exemple est la plus simple des implémentation d'un middleware de Slim. Il hérite de `\Slim\Middleware`, implémente une méthode publique `call()` et appelle le middleware suivant.
 
     <?php
     class MyMiddleware extends \Slim\Middleware
