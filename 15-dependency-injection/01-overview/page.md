@@ -1,66 +1,62 @@
 ---
-title: DI Overview
+title: Généralités sur les injections de dépendances
 status: live
 ---
 
-Slim has a built-in resource locator, providing an easy way to inject objects into a Slim app, or
-to override any of the Slim app's internal objects (e.g. Request, Response, Log).
+Slim dispose d'un localisateur de ressources intégré, il permet de facilement injecter des objets dans une application Slim ou de surcharger n'importe lequel des objets internes de Slim (par exemple Request, Response, Log).
 
-## Injecting simple values
+## Injecter des valeurs simples
 
-If you want to use Slim as a simple key-value store, it is as simple as this:
+Si vous voulez utiliser Slim comme un simple "magasin" de clé-valeurs, c'est aussi simple que cela:
 
     <?php
     $app = new \Slim\Slim();
     $app->foo = 'bar';
 
-Now, you can fetch this value anywhere with `$app->foo` and get its value `bar`.
+Maintenant, vous pouvez récupérer cette valeur n'importe où par `$app->foo` et obtenir `bar`.
 
-## Using the resource locator
+## En utilisant le localisateur de ressources
 
-You can also use Slim as a resource locator by injecting closures that define how
-your desired objects will be constructed. When the injected closure is requested, it will
-be invoked and the closure's return value will be returned.
+Vous pouvez aussi utiliser Slim comme un localisateur de ressources, en injectant des fonctions qui définissent comment vos objets seront construits. Quand la ressource est appelée, la fonction sera invoquée et la ressource retournera la valeur de sortie de la fonction:
 
     <?php
     $app = new \Slim\Slim();
 
-    // Determine method to create UUIDs
+    // Méthode pour créer un UUID
     $app->uuid = function () {
         return exec('uuidgen');
     };
 
-    // Get a new UUID
+    // Obtenir un nouvel UUID
     $uuid = $app->uuid;
 
-### Singleton resources
+### Resources en mode Singleton 
 
-Sometimes, you may want your resource definitions to stay the same each time they are requested
-(i.e. they should be singletons within the scope of the Slim app). This is easy to do:
+Parfois; vous voulez que votre ressource reste la même chaque fois qu'elle est demandée
+(i.e. En fait, des singletons dans l'application Slim). Facile:
 
     <?php
     $app = new \Slim\Slim();
 
-    // Define log resource
+    // Définit une ressource de Log
     $app->container->singleton('log', function () {
         return new \My\Custom\Log();
     });
 
-    // Get log resource
+    // Obtenir la ressource de log
     $log = $app->log;
 
-Every time you request the log resource with `$app->log`, it will return the same instance.
+Chaque fois que vous demandez la ressource de log par `$app->log`, cela retournera la même instance.
 
-### Closure resources
+### Fonctions comme ressource
 
-What if you want to literally store a closure as the raw value and not have it invoked? You can do that
-like this:
+Et comment faire si vous voulez littéralement stocker une fonction comme valeur et ne pas l'invoquer? Vous pouvez le faire comme cela:
 
     <?php
     $app = new \Slim\Slim();
 
-    // Define closure
+    // Définir la fonction
     $app->myClosure = $app->container->protect(function () {});
 
-    // Return raw closure without invoking it
+    // Retourne la fonction plutôt que l'invoquer
     $myClosure = $app->myClosure;
