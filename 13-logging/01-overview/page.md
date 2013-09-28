@@ -1,19 +1,18 @@
 ---
-title: Overview
+title: Généralités
 status: live
 ---
 
-A Slim application provides a log object that writes data to a specific output. The actual writing of data is
-delegated to a log writer.
+Une application Slim fournit un objet de log qui écrit des données dans une sortie spécifique. Cette écriture de données est faite par un log writer.
 
-### How to log data
+### Comment "logger" des données
 
-To log data in a Slim application, get a reference to the log object:
+Pour logger des données dans une application Slim, obtenez une référence à l'objet de log:
 
     <?php
     $log = $app->log;
 
-The log object provides the following PSR-3 interface
+Cet objet fournit les interfaces PSR-3 suivantes:
 
     $app->log->debug(mixed $object);
     $app->log->info(mixed $object);
@@ -24,6 +23,4 @@ The log object provides the following PSR-3 interface
     $app->log->alert(mixed $object);
     $app->log->emergency(mixed $object);
 
-Each log object method accepts one mixed argument. The argument is usually a string, but the argument can be
-anything. The log object will pass the argument to its log writer. It is the log writer’s responsibility to write
-arbitrary input to the appropriate destination.
+Chaque méthode de l'objet de log accepte un argument mixte. L'argument est habituellement une chaîne de caractères, mais il peut être n'importe quoi. L'objet de log va passer l'argument à son log writer. C'est le job du log writer d'écrire arbitrairement l'entrée dans la destination appropriée.

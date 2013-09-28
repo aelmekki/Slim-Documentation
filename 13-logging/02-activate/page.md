@@ -1,22 +1,22 @@
 ---
-title: Activate Logging
+title: Activer le Logging
 status: live
 ---
 
-The Slim application’s log object provides the following public methods to enable or disable logging during runtime.
+L'objet de log de Slim propose les méthodes publiques suivantes pour activer ou désactiver le logging durant l'exécution:
 
     <?php
-    //Enable logging
+    //Activer le logging
     $app->log->setEnabled(true);
 
-    //Disable logging
+    //Désactiver le logging
     $app->log->setEnabled(false);
 
-You may enable or disable the log object during application instantiation like this:
+Vous pouvez activer ou désactiver les logs de l'application directement à instanciation comme cela:
 
     <?php
     $app = new Slim(array(
         'log.enabled' => true
     ));
 
-If logging is disabled, the log object will ignore all logged messages until it is enabled.
+Si les logs sont désactivés, le writer ignorera tous les messages jusqu'à ce qu'il soit activé.
