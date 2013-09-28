@@ -1,22 +1,18 @@
 ---
-title: Flash Messaging Overview
+title: Généralités sur les messages "flash"
 status: live
 ---
 
 <div class="alert alert-info">
-    <strong>Heads Up!</strong> Flash messages require sessions. If you do not use the
-    <code>\Slim\Middleware\SessionCookie</code> middleware, you must start a native PHP session yourself.
+    <strong>Attention!</strong> Les messages "flash" ont besoins des sessions. Si vous n'utilisez pas le middleware  
+    <code>\Slim\Middleware\SessionCookie</code>, vous devrez créer une session vous-même avec PHP.
 </div>
 
-Slim supports flash messaging much like Rails and other larger web frameworks. Flash messaging allows you to define
-messages that will persist until the next HTTP request but no further. This is helpful to display messages to the user
-after a given event or error occurs.
+Slim supporte les messages "flash" tout comme Rails et d'autres frameworks web. Les messages "flash" vous permettent de définir de messages qui persisteront jusqu'à la prochaine requête HTTP, mais pas plus. C'est est utile pour afficher des messages à l'utilisateur après un événement ou quand une erreur se produit.
 
-As shown below, the Slim application’s `flash()` and `flashNow()` methods accept two arguments: a key and a message.
-The key may be whatever you want and defines how the message will be accessed in the view templates. For example,
-if I invoke the Slim application’s `flash('foo', 'The foo message')` method with those arguments, I can access that
-message in the next request’s templates with `flash['foo']`.
+Comme indiqué ci-dessous, les méthodes `flash()` et `flashNow ()` d'une application Slim acceptent deux arguments: une clé et un message.
 
-Flash messages are persisted with sessions; sessions are required for flash messages to work. Flash messages are
-stored in `$_SESSION['slim.flash']`.
+La clé peut être ce que vous voulez, elle définit la manière dont le message sera accessible dans les modèles d'affichage. Par exemple, si j'invoque la méthode `flash('foo', 'Le message foo')` avec ces arguments, je peux accéder à ce message dans les modèles de la prochaine requête avec `flash['foo']`.
+
+Les messages "flash" sont conservés avec les sessions, les sessions sont nécessaires pour les messages flash. De plus, Les messages "flash" sont stockés dans `$ _SESSION['slim.flash']`.
 

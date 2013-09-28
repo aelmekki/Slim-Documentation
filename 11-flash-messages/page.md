@@ -1,4 +1,4 @@
 ---
-title: Flash Messages
+title: Messages "Flash"
 status: live
 ---

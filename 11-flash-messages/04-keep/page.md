@@ -1,10 +1,9 @@
 ---
-title: Flash Keep
+title: "Flash" persistant
 status: live
 ---
 
-This method tells the Slim application to keep existing flash messages set in the previous request so they will be
-available to the next request. This method is helpful for persisting flash messages across HTTP redirects.
+Cette méthode demande à l'application Slim de garder un message "flash" existant de la requête précédente pour qu'il soit disponible dans la requête suivante. Cette méthode est utile pour garder des messages persistants dans les redirections HTTP par exemple.
 
     <?php
     $app->flashKeep();

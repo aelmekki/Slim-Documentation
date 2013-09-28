@@ -1,11 +1,10 @@
 ---
-title: Flash Now
+title: "Flash" Maintenant
 status: live
 ---
 
-The Slim application’s `flashNow()` method sets a message that will be available in the current request’s view
-templates. Messages set with the `flashNow()` application instance method will not be available in the next request.
-The message in the example below will be available in the template variable `flash['info']`.
+La méthode `flashNow()` de l'application Slim définit un message qui sera disponible dans les modèles d'affichage de la requête en cours.
+Dans cet exemple, le message sera disponible dans le modèle par la variable `flash['info']`.
 
     <?php
-    $app->flashNow('info', 'Your credit card is expired');
+    $app->flashNow('info', 'Votre carte de crédit a expiré');
