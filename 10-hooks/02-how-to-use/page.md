@@ -1,34 +1,30 @@
 ---
-title: How to Use Hooks
+title: Comment utiliser les crochets?
 status: live
 ---
 
-A callable is assigned to a hook using the Slim application’s `hook()` method:
+Une fonction est assignée à un crochet en utilisant la méthode `hook()` de l'application Slim:
 
     <?php
     $app = new \Slim\Slim();
-    $app->hook('the.hook.name', function () {
-        //Do something
+    $app->hook('le.nom.du.crochet', function () {
+        //Faire quelquechose
     });
 
-The first argument is the hook name, and the second argument is the callable. Each hook maintains a priority
-list of registered callables. By default, each callable assigned to a hook is given a priority of 10. You can give
-your callable a different priority by passing an integer as the third parameter of the `hook()` method:
+Le premier argulent est le nom du crochet, le second est la fonction. Chaque crochet maintient une liste de priorités des fonctions qui lui sont liées. Par défaut, chaque fonction liée à un crochet a une priorité de 10. Vous pouvez changer la priorité en définissant un troisième paramètre, entier, à la fonction `hook()`:
 
     <?php
     $app = new \Slim\Slim();
-    $app->hook('the.hook.name', function () {
-        //Do something
+    $app->hook('le.nom.du.crochet', function () {
+        //Faire quelquechose
     }, 5);
 
-The example above assigns a priority of 5 to the callable. When the hook is called, it will sort all callables
-assigned to it by priority (ascending). A callable with priority 1 will be invoked before a callable with priority 10.
+L'exemple ci-dessus assigne une priorité de 5 à la fonction. Quand le crochet est appelé, il va trier les fonctions qui lui sont liées par priorité (ascendentes). Une fonction avec une priorité de 1 sera appelée avant une fonction de priorité 10.
 
-Hooks do not pass arguments to their callables. If a callable needs to access the Slim application, you can inject
-the application into the callback with the `use` keyword or with the Slim application's static `getInstance()` method:
+Un crochet ne passe pas d'argument à ses fonctions. Si une fonction a besoin d'accéder à l'application Slim, vous pouvez l'injecter dans la fonction de rappel avec le mot-clé `use` ou avec la méthode statique `getInstance()`:
 
     <?php
     $app = new \Slim\Slim();
-    $app->hook('the.hook.name', function () use ($app) {
-        // Do something
+    $app->hook('le.nom.du.crochet', function () use ($app) {
+        // Faire quelquechose
     });

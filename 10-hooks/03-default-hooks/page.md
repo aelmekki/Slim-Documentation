@@ -1,24 +1,24 @@
 ---
-title: Default Hooks
+title: Crochets par défaut
 status: live
 ---
 
-These are the default hooks always invoked in a Slim application.
+Voici les crochets par défaut qui sont toujours appelés dans une application Slim:
 
 slim.before
-: This hook is invoked before the Slim application is run and before output buffering is turned on. This hook is invoked once during the Slim application lifecycle.
+: Ce crochet est appelé avant que l'application Slim soit exécutée et avant que la mise en mémoire tampon de sortie ne soit activée. Ce crochet n'est appelé qu'une fois au cours du cycle de vie d'une application Slim.
 
 slim.before.router
-: This hook is invoked after output buffering is turned on and before the router is dispatched. This hook is invoked once during the Slim application lifecycle.
+: Ce crochet est invoqué une fois que la mise en mémoire tampon de sortie est activée et avant que le routeur ne soit actif. Ce crochet n'est appelé qu'une fois au cours du cycle de vie d'une application Slim.
 
 slim.before.dispatch
-: This hook is invoked before the current matching route is dispatched. Usually this hook is invoked only once during the Slim application lifecycle; however, this hook may be invoked multiple times if a matching route chooses to pass to a subsequent matching route.
+: Ce crochet est appelé avant qu'une route ne soit appelée. Habituellement, ce crochet n'est appelé qu'une fois au cours du cycle de vie d'une application Slim, mais il peut être invoqué plusieurs fois si une route choisit de passer à une route subséquente.
 
 slim.after.dispatch
-: This hook is invoked after the current matching route is dispatched. Usually this hook is invoked only once during the Slim application lifecycle; however, this hook may be invoked multiple times if a matching route chooses to pass to a subsequent matching route.
+: Ce crochet est appelé après qu'une route ait été  appelée. Habituellement, ce crochet n'est appelé qu'une fois au cours du cycle de vie d'une application Slim, mais il peut être invoqué plusieurs fois si une route choisit de passer à une route subséquente.
 
 slim.after.router
-: This hook is invoked after the router is dispatched, before the Response is sent to the client, and after output buffering is turned off. This hook is invoked once during the Slim application lifecycle.
+: Ce crochet est appelé une fois que le routeur a dispatché la requête, avant que la réponse ne soit envoyée au client et après que la sortie tampon ne soit arrêtée. Il est appelé une seule fois dans le cycle de vie d'une application Slim.
 
 slim.after
-: This hook is invoked after output buffering is turned off and after the Response is sent to the client. This hook is invoked once during the Slim application lifecycle.
+: Ce crochet est appelé une fois que la réponse est envoyée au client et après que la sortie tampon ait été arrêtée. Il est appelé une seule fois dans le cycle de vie d'une application Slim.

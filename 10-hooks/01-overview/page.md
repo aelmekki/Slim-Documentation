@@ -1,15 +1,13 @@
 ---
-title: Hooks Overview
+title: Généralités sur les crochets
 status: live
 ---
 
-A Slim application provides a set of hooks to which you can register your own callbacks.
+Une application Slim fournit une liste de crochets auxquels vous pouvez abonner vos propres fonctions de rappel.
 
-### What is a hook?
+### Qu'est-ce qu'un crochet?
 
-A “hook” is a moment in the Slim application lifecycle at which a priority list of callables assigned to the hook
-will be invoked. A hook is identified by a string name.
+Un “crochet” est un moment du cycle de vie d'une application Slim où une liste prioritaire de fonctions appelables qui lui sont liées (au crochet) sera invoquée. Un crochet est identifié par une chaîne de caractères.
 
-A “callable” is anything that returns `true` for `is_callable()`. A callable is assigned to a hook and is invoked
-when the hook is called. If multiple callables are assigned to a single hook, each callable is invoked in the order
-assigned.
+Par “fonction appelable” j'entends n'importe quel objet qui returne `true` à la fonction `is_callable()`. 
+Une fonction appelable est liée à un crochet et est appelée quand le crochet est appelé. Si plusieurs fonctions sont liées à un même crochet, chaque fonction est appelée dans l'ordre de leur priorités et dans lequel elles ont été ajoutées.
