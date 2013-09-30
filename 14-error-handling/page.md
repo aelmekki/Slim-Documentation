@@ -1,4 +1,4 @@
 ---
-title: Error Handling
+title: Gestion d'erreurs
 status: live
 ---

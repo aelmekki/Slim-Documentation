@@ -1,14 +1,13 @@
 ---
-title: Overview
+title: Généralités
 status: live
 ---
 
-Let’s face it: sometimes things go wrong. It is important to intercept errors and respond to them appropriately. A
-Slim application provides helper methods to respond to errors and exceptions.
+Soyons réaliste, parfois, les choses se passent mal. C'est important d'intercepter les erreurs et de les traiter correctement. Une application Slim fournit une liste de méthodes d'aides pour gérer les erreurs et les exceptions.
 
-### Important Notes
+### Notes Importantes
 
-* A Slim application respects your existing `error_reporting` setting;
-* A Slim application only handles errors and exceptions generated inside the Slim application;
-* A Slim application converts errors into `ErrorException` objects and throws them;
-* A Slim application uses its built-in error handler if its `debug` setting is true; otherwise, it uses the custom error handler.
+* Une application Slim respecte votre paramètre `error_reporting`;
+* Une application Slim gère seulement les erreurs et exceptions créées dans l'application;
+* Une application Slim transforme les erreurs en objet de type `ErrorException` et les "throw";
+* Une application Slim utilise son propre gestionnaire d'erreurs si le paramètre `debug` vaut "true"; sinon, il utilise un gestionnaire personnalisé.

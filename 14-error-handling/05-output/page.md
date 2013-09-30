@@ -1,27 +1,24 @@
 ---
-title: Output Redirection
+title: Redirection de sortie
 status: live
 ---
 
-The Slim application's environment will always contain a key **slim.errors** with a value that is a writable
-resource to which log and error messages may be written. The Slim application’s log object will write log messages
-to **slim.errors** whenever an Exception is caught or the log object is manually invoked.
+L'environnement d'une application Slim contiendra toujours une clé **slim.errors** avec une valeur comme ressource (où l'on écrit) pour les messages d'erreurs. L'objet log d'une application Slim écrira les messages dans **slim.errors** chaque fois qu'une Exception est attrapée ou que l'objet log est appelé manuellement.
 
-If you want to redirect error output to a different location, you can define your own writable resource by
-modifying the Slim application’s environment settings. I recommend you use middleware to update the environment:
+Si vous voulez rediriger la sortie d'erreur, vous pouvez définir votre propre ressource en modifiant les paramètres d'environnement. Je recommande d'utiliser un middleware pour changer l'environnement:
 
     <?php
     class CustomErrorMiddleware extends \Slim\Middleware
     {
         public function call()
         {
-            // Set new error output
+            // Définir la nouvelle sortie d'erreur
             $env = $this->app->environment;
-            $env['slim.errors'] = fopen('/path/to/output', 'w');
+            $env['slim.errors'] = fopen('/chemain/de/la/sortie', 'w');
 
-            // Call next middleware
+            // Appeler le middleware suivant
             $this->next->call();
         }
     }
 
-Remember, **slim.errors** does not have to point to a file; it can point to any valid writable resource.
+Souvenez-vous, **slim.errors** ne pointe pas forcément un fichier, il pointe n'importe quelle ressource inscriptible.

@@ -1,17 +1,13 @@
 ---
-title: Not Found Handler
+title: Gestionnaire d'erreurs de type "Non trouvé"
 status: live
 ---
 
-It is an inevitability that someone will request a page that does not exist. The Slim application lets you easily
-define a custom Not Found handler with the Slim application’s `notFound()` method. The Not Found handler will be
-invoked when a matching route is not found for the current HTTP request. This method acts as both a getter and a setter.
+C'est inéluctable, quelqu'un finira par appeler une page qui n'existe pas. Slim vous permet de définir facilement un gestionnaire de "Non trouvé" avec la méthode `notFound()`. Le gestionnaire de non trouvé sera appelé si aucune route n'est trouvée pour la requête HTTP courante. Cette méthode agit comme un getter et un setter.
 
-### Set not found handler
+### Définir un gestionnaire de non trouvé
 
-If you invoke the Slim application’s `notFound()` method and specify a callable object as its first and only
-argument, this method will register the callable object as the Not Found handler. However, the registered handler
-will not be invoked.
+Si vous appelez la méthode `notFound()` de Slim avec une fonction comme argument, la méthode enregistrera cette fonction comme le gestionnaire de non trouvé. Sinon, le gestionnaire de base sera appelé.
 
     <?php
     $app = new \Slim\Slim();
@@ -19,15 +15,14 @@ will not be invoked.
         $app->render('404.html');
     });
 
-### Invoke not found handler
+### Appeler ce gestionnaire
 
-If you invoke the Slim application’s `notFound()` method without any arguments, this method will invoke the
-previously registered Not Found handler.
+Si vous appelez la méthode `notFound()` de Slim sans argument, elle invoquera  le gestionnaire précédement enregistré.
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/:name', function ($name) use ($app) {
-        if ( $name === 'Waldo' ) {
+        if ( $name === 'Charlie' ) {
             $app->notFound();
         } else {
             echo "Hello, $name";
