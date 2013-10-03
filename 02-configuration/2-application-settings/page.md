@@ -5,9 +5,9 @@ status: live
 
 ### mode
 
-C'est un identifiant pour le mode de l'application. Ce mode n'affecte en rien les fonctionnalités de l'application Slim. 
-En fait, le mode vous sert seulement si vous voulez exécuter des morceaux de code spécifiques en fonction de celui-ci, cela est possible grâce à la méthode `configMode()` de l'application.
-Le mode de l'application est déclaré à l'instanciation, que cela soit avec une variable d'environnement ou avec un argument passé dans le constructeur. Il ne peut plus être changé après. 
+C'est le mode de l'application. Ce mode n'affecte en rien les fonctionnalités de l'application Slim. 
+En fait, le mode vous sert seulement si vous voulez exécuter des bouts de code spécifiques en fonction de celui-ci, c'est possible grâce à la méthode `configMode()` de l'application.
+Le mode de l'application est déclaré à l'instanciation, que cela soit avec une variable d'environnement ou avec un argument passé dans le constructeur. Il ne peut pas être changé après. 
 La valeur n'a pas d'importance et peut-être n'importe quoi - "development", "test" et "production" sont des exemples typiques, mais n'hésitez pas à mettre une valeur personnalisée (pourquoi pas "foo" ou même "bar").
 
     <?php
@@ -16,7 +16,7 @@ La valeur n'a pas d'importance et peut-être n'importe quoi - "development", "te
     ));
 
 Type du paramètre
-: string
+: chaîne de caractères
 
 Valeur par défaut
 : "development"
@@ -36,21 +36,21 @@ En revanche, si ce mode est désactivé, Slim invoquera votre gestionnaire d'err
     ));
 
 Type du paramètre
-: boolean
+: booléen
 
 Valeur par défaut
 : true
 
 ### log.writer
 
-Utiliser un logueur pour pouvoir loguer des messages dans les sorties appropriées. 
-Par défaut, le logueur de Slim va écrire les messages dans `STDERR`. Si vous voulez utiliser un logueur personnalisé, il doit simplement implémenter cette interface: 
+Utiliser un log writer pour pouvoir faire des logs des messages dans les sorties appropriées. 
+Par défaut, le log writer de Slim va écrire les messages dans `STDERR`. Si vous voulez utiliser un log writer personnalisé, il doit simplement implémenter cette interface: 
 
     public write(mixed $message, int $level);
 
 La méthode `write()` est celle qui gère l'envoi de messages de log (message qui n'est pas forcément une chaîne de caractères) dans la bonne sortie (par exemple, un fichier texte, une base de données ou encore un web service).
 
-Pour utiliser un logueur personnalisé après l'instanciation, vous devez directement modifier celui de Slim et utiliser sa méthode `setWriter()`.
+Pour utiliser un log writer personnalisé après l'instanciation, vous devez directement modifier celui de Slim et utiliser la méthode `setWriter()` de l'objet log.
 
     <?php
     // Pendant l'instanciation
@@ -101,14 +101,14 @@ Pour changer ce paramètre après l'instanciation, vous devez accéder au logueu
     $log->setLevel(\Slim\Log::WARN);
 
 Type du paramètre
-: integer
+: entier
 
 Valeur par défaut
 : \Slim\Log::DEBUG
 
 ### log.enabled
 
-Cela active ou désactive le logueur de Slim. Pour changer ce paramètre après l'instanciation, il faut accéder au logueur de Slim et utiliser directement sa méthode `setEnabled()`.
+Active ou désactive le log writer de Slim. Pour changer ce paramètre après l'instanciation, il faut accéder au log writer de Slim et utiliser directement sa méthode `setEnabled()`.
 
     <?php
     // Pendant l'instanciation
@@ -121,7 +121,7 @@ Cela active ou désactive le logueur de Slim. Pour changer ce paramètre après 
     $log->setEnabled(true);
 
 Type du paramètre
-: boolean
+: booléen
 
 Valeur par défaut
 : true
@@ -129,9 +129,9 @@ Valeur par défaut
 ### templates.path
 
 Le chemin, relatif ou absolu, jusqu'au dossier qui contient vos templates d'application Slim.
-Ce chemin est utilisé par la vue de l'application Slim (View) pour trouver et pouvoir utiliser les templates.
+Ce chemin est utilisé par la vue de l'application Slim (view) pour trouver et pouvoir utiliser les templates.
 
-Pour changer ce paramètre après l'instanciation, vous devez accéder à la View de Slim directement et utiliser sa méthode `setTemplatesDirectory()`.
+Pour changer ce paramètre après l'instanciation, vous devez accéder à la view de Slim directement et utiliser sa méthode `setTemplatesDirectory()`.
 
     <?php
     // Pendant l'instanciation
@@ -144,7 +144,7 @@ Pour changer ce paramètre après l'instanciation, vous devez accéder à la Vie
     $view->setTemplatesDirectory('./templates');
 
 Type du paramètre
-: string
+: chaîne de caractères
 
 Valeur par défaut
 : "./templates"
@@ -163,7 +163,7 @@ La classe View, plus précisément son instance, utilisée par l'application Sli
     $app->view(new \My\View());
 
 Type du paramètre
-: string|\Slim\View
+: chaîne de caractère|\Slim\View
 
 Valeur par défaut
 : \Slim\View
@@ -178,7 +178,7 @@ Spécifie si l'application Slim doit chiffrer les cookies HTTP ou non.
     ));
 
 Type du paramètre
-: boolean
+: booléen
 
 Valeur par défaut
 : false
@@ -186,7 +186,7 @@ Valeur par défaut
 ### cookies.lifetime
 
 Paramètre la durée de vie d'un cookie HTTP créé par l'application Slim. Si c'est un entier, il doit être un timestamp UNIX valide, il représente la date à laquelle le cookie expire.
-Si c'est une chaîne de caractères, il est converti par la fonction `strtotime()` afin d'avoir un timestamp UNIX valide pour savoir quand le cookie expire.
+Si c'est une chaîne de caractères, il est convertit par la fonction `strtotime()` afin d'avoir un timestamp UNIX valide pour savoir quand le cookie expire.
 
     <?php
     // Pendant l'instanciation
@@ -198,7 +198,7 @@ Si c'est une chaîne de caractères, il est converti par la fonction `strtotime(
     $app->config('cookies.lifetime', '20 minutes');
 
 Type du paramètre
-: integer|string
+: entier|chaîne de caractères
 
 Valeur par défaut
 : "20 minutes"
@@ -217,7 +217,7 @@ Spécifie le chemin du cookie HTTP si aucun n'a déjà été spécifié quand la
     $app->config('cookies.path', '/');
 
 Type du paramètre
-: string
+: chaîne de caractères
 
 Valeur par défaut
 : "/"
@@ -236,7 +236,7 @@ Spécifie le domaine du cookie HTTP si aucun n'a déjà été spécifié quand l
     $app->config('cookies.domain', 'domain.com');
 
 Type du paramètre
-: string
+: chaîne de caractères
 
 Valeur par défaut
 : null
@@ -255,7 +255,7 @@ Spécifie si le cookie doit être délivré seulement en HTTPS ou non. Ce param�
     $app->config('cookies.secure', false);
 
 Type du paramètre
-: boolean
+: booléen
 
 Valeur par défaut
 : false
@@ -274,7 +274,7 @@ Spécifie si le cookie doit être délivré seulement en HTTP ou non. Ce paramè
     $app->config('cookies.httponly', false);
 
 Type du paramètre
-: boolean
+: booléen
 
 Valeur par défaut
 : false
@@ -293,7 +293,7 @@ La clé secrète utilisée pour chiffrer les cookies. Vous devez changer ce para
     $app->config('cookies.secret_key', 'secret');
 
 Type du paramètre
-: string
+: chaîne de caractères
 
 Valeur par défaut
 : "CHANGE_ME"
@@ -312,7 +312,7 @@ Le type de chiffrement utilisé pour le cookie HTTP. Voir [chiffrements disponib
     $app->config('cookies.cipher', MCRYPT_RIJNDAEL_256);
 
 Type du paramètre
-: integer
+: entier
 
 Valeur par défaut
 : MCRYPT_RIJNDAEL_256
@@ -331,7 +331,7 @@ Le mode de chiffrement utilisé pour le cookie HTTP. Voir [modes de chiffrements
     $app->config('cookies.cipher_mode', MCRYPT_MODE_CBC);
 
 Type du paramètre
-: integer
+: entier
 
 Valeur par défaut
 : MCRYPT_MODE_CBC
@@ -350,7 +350,7 @@ Par défaut, Slim retourne une réponse HTTP/1.1 au client. Il faut utiliser ce 
     $app->config('http.version', '1.1');
 
 Type du paramètre
-: string
+: chaîne de caractères
 
 Valeur par défaut
 : "1.1"

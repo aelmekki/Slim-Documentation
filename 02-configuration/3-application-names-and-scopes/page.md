@@ -22,7 +22,7 @@ Voici comment on définit et récupère un nom d'application:
 
 ### Résolution de portée
 
-Comment récupérer une référence de votre application Slim? L'exemple suivant montre comment obtenir une référence à une application Slim dans une fonction de routage. 
+Comment récupérer une référence de votre application Slim? L'exemple suivant montre comment obtenir la référence d'une application Slim dans une fonction de routage. 
 La variable `$app` est utilisée dans une portée globale pour définir les routes HTTP GET. 
 Cependant, cette même variable `$app` est aussi nécessaire dans la fonction de rappel appelée pour le rendu d'un template.
 
