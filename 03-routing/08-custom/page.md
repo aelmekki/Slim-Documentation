@@ -5,7 +5,8 @@ status: live
 
 ### Une route, plusieurs méthodes HTTP
 
-Parfois, vous allez avoir besoin qu'une route fonctionne avec plusieurs méthodes HTTP; Parfois, vous avez besoin qu'une route fonctionne avec une méthode HTTP personnalisée. Vous pouvez répondre à ces deux cas grâce à la méthode `via()` de l'objet Route. Cet exemple montre comment mapper une URI à une fonction de rappel qui va gérer plusieurs méthodes HTTP.
+Parfois, vous allez avoir besoin qu'une route fonctionne avec plusieurs méthodes HTTP, ou encore qu'une route fonctionne avec une méthode HTTP personnalisée. 
+Vous pouvez gérer ces deux cas grâce à la méthode `via()` de l'objet Route. Cet exemple montre comment mapper une URI à une fonction de rappel qui va gérer plusieurs méthodes HTTP.
 
     <?php
     $app = new \Slim\Slim();

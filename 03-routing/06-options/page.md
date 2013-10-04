@@ -18,7 +18,7 @@ Typiquement, le dernier argument sera une [fonction anonyme][anon-func]
 
 ### Surcharge de méthode
 
-Malheureusement, les navigateurs web récents ne fournissent pas de support natif pour les requêtes HTTP DELETE. Pour supprimer cette limitation, assurez-vous que l'attribut method de votre formulaire HTML est “post”, ensuite, ajoutez une surcharge de méthode dans le formulaire HTML comme cela:
+Malheureusement, les navigateurs web récents ne fournissent pas de support natif pour les requêtes HTTP DELETE. Pour supprimer cette limitation, assurez-vous que l'attribut *method* de votre formulaire HTML est “post”, ensuite, ajoutez une surcharge de méthode dans le formulaire HTML comme cela:
 
     <form action="/books/1" method="post">
         ... éléments du formulaire ici ...
