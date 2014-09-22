@@ -1,10 +1,9 @@
 ---
-title: Response Body
+title: Corps de la Réponse
 status: live
 ---
 
-The HTTP response returned to the client will have a body. The HTTP body is the actual content of the HTTP response
-delivered to the client. You can use the Slim application’s response object to set the HTTP response’s body:
+La réponse HTTP renvoyée au client HTTP aura un corps. Le corps HTTP est le contenu réel de la réponse HTTP délivrée au client. Vous pouvez utiliser l'objet de réponse de l'application Slim pour définir le corps de la réponse HTTP:
 
     <?php
     $app = new \Slim\Slim();
@@ -15,15 +14,12 @@ delivered to the client. You can use the Slim application’s response object to
     // Append response body
     $app->response->write('Bar');
 
-When you overwrite or append the response object’s body, the response object will automatically set the
-**Content-Length** header based on the bytesize of the new response body.
+Lorsque vous écrasez ou ajoutez le corps de l'objet de réponse, l'objet de réponse définira automatiquement l'en-tête 
+**Content-Length** (longueur de contenu) sur la base de la taille en octet du corps de la nouvelle réponse.
 
-You can fetch the response object’s body like this:
+Vous pouvez aller chercher le corps de l'objet de réponse comme suit:
 
     <?php
     $body = $app->response->getBody();
 
-Usually, you will never need to manually set the response body with the `setBody()` or `write()` methods; instead,
-the Slim app will do this for you. Whenever you `echo()` content inside a route's callback function, the
-`echo()`’d content is captured in an output buffer and appended to the response body before the HTTP response
-is returned to the client.
+Habituellement, vous n'aurez jamais besoin de régler manuellement le corps de la réponse avec les méthodes `setBody()` ou `write()`;l'application Slim le fera pour vous. Chaque fois que vous répétez `echo()` le contenu à l'intérieur de la fonction de rappel d'un itinéraire, le contenu de la répétition `echo()`est capturé dans une mémoire tampon de sortie et ajouté au corps de réponse avant que la réponse HTTP ne soit renvoyée au client.
